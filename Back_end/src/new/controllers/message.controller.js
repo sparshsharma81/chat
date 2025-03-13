@@ -1,11 +1,8 @@
 import User from '../models/user.model.js'; //we have to import the user model else it will crash
 
-import Message from '../models/message.model.js';       
-import cloudinary from '../lib/cloudinary.js';
-// import Message from '../models/message.model.js';    
-
-import { getReceiverSocketId, io } from '../lib/socket.js';
-
+import Message from '../models/message.model.js';
+import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 export const getUsersForSidebar = async (req, res) => {
     try{
         const loggedInUserId = req.user._id;
@@ -21,8 +18,8 @@ export const getUsersForSidebar = async (req, res) => {
 
 
 
-        const users = await User.find({_id: {$ne: loggedInUserId}}).select('-password');
-        res.status(200).json(users);
+        // const users = await User.find({_id: {$ne: loggedInUserId}}).select('-password');
+        res.status(200).json(filteredUsers);
     }catch(error){
         console.error('Error in getUsersForSidebar:', error.message);
         res.status(500).json({message: error.message});
@@ -74,26 +71,25 @@ export const sendMessage = async (req, res) => {
 
         //after the message is created, we will send the message to the user to chat
         //we need to save this image...
-        // await newMessage.save(); //Message .create() will save the document..
+        await newMessage.save();
 
         //now we will send the message to the user to chat
         
 
         //we can add realtime functionality here... using socket.io 
 
-        await newMessage.save();
+
         const receiverSocketId = getReceiverSocketId(receiverId);
-        if (receiverSocketId) {  //if the user is online then we will sned the message in real time
-          io.to(receiverSocketId).emit("newMessage", newMessage); //it will broadast to everyone
-          // io.emit() is used to send events to all the connected clients --end to end encryption
-        }
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
         res.status(201).json(newMessage); //now we can send the new message back to the client
     }catch(error){
         console.error('Error in sendMessage:', error.message); //this is internal error
         res.status(500).json({message: error.message});
     }
-};
+}
 
 
 /*

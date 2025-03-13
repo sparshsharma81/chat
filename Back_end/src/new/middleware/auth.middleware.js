@@ -13,7 +13,7 @@ export const protectRoute = async (req, res, next) => { //this next function is 
 //in the lib --- in utils file we have created the generateToken function 
 //in utils.js we can called the jwt this way...res.cookie('jwt',token
 
-console.log(token);
+// console.log(token);
 
     if(token === '') { //if the token is not present then we will return the message that unauthorized
         return res.status(401).json({message: "Unauthorized user"});
@@ -25,7 +25,7 @@ console.log(token);
     console.log(decoded.userId);
     //this will verify the token and return the decoded token
 //we will gonna decode the token using this...
-//process.env.JWT_SECRET is the secret key to decode the token  
+//process.env.JWT_SECRET is the secret key to decode the token 
 //ye hamne env file me define kiya hia
 
 

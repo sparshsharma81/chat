@@ -13,18 +13,17 @@ import cloudinary from '../lib/cloudinary.js';
 //ye basically token k function ko import karega
 //jisse ham token generate karke use use kar sakte hai...
 export const signup = async (req, res) => {
-    const { fullName, email, password } = req.body;
 
-
+const { fullName,email, password} = req.body; 
 
     //gen-z practice hoti hai ki try catch ka use kare...
     //kyuki hamse pasand nahi hamara code me koi bhi error aayega to wo catch block me aayega
     try {
 
-    // const { fullname,email, password} = req.body; 
+    
     //params are coming from the body of the request 
     //aur ham params ke data ko extract kar rahe
-        // const user = await User.create({email, fullname, password, profilePicture});
+        // const user = await User.create({email, fullName, password, profilePicture});
         // res.status(201).json({message: "User created successfully", user});
         
         if(!fullName || !email || !password) { 
@@ -59,10 +58,9 @@ export const signup = async (req, res) => {
        })
 
        if(newUser) { 
-        
+        await newUser.save();
         //yaha pr ham jwt token ko generate kar sakte hai
         generateToken(newUser._id,res); 
-        await newUser.save();
         //we write address after newUser._id , so that it can send the cookie to response 
     //    await newUser.save();
         // generateToken(newUser._id, res);
@@ -189,103 +187,50 @@ export const logout = (req, res) => {
 //BY DEFAULT IT IS OPTIONAL TO UPDATE THE PROFILE PICTURE 
 //BUT NOW THE USER WILL UPDATE THE PROFILE PICTURE ////
 
-// export const updateProfile = async (req, res) => {
-//     try{
-//         const {profilePicture} = req.body;
-//         // console.log({profilePicture});
-//         const user = req.user._id;
-
-//         if(!profilePicture){
-//                     return res.status(400).json({message: "Profile picture is required"});
-//                 }
-
-//         //cloudinary is just a bucket for images
-//         // const uploadResponse = await cloudinary.uploader.upload(profilePicture, {
-//         //     folder: 'profile-pictures',
-//         // });
-//         /*
-//                 password : hashedPassword
-//             fullName: user.fullName,
-//         const uploadResponse = await cloudinary.uploader.upload(profilePicture);
-//         const updatedUser = await User.findByIdAndUpdate(user, { //we need to update user by its id for profile pictur  e
-//             profilePicture: uploadResponse.secure_url, //this is the url that cloudinary gives you back...
-//         }, {new: true}); //this will give the lastest object of user after it has updated..
-       
-//         */
-
-//           // Extract the base64 string from the data URL
-//         //   const base64Image = profilePicture.split(',')[1]; // Get the part after the comma
-
-        
-//           let uploadResponse;
-//           try {
-//               uploadResponse = await cloudinary.uploader.upload(`data:image/jpeg;base64,${base64Image}`, {
-//                   folder: 'profile-pictures', // Optional: specify a folder
-//               });
-//               console.log("Upload Response:", uploadResponse); // Log the upload response
-//           } catch (uploadError) {
-//               console.error("Cloudinary upload error:", uploadError); // Log the error
-//               return res.status(500).json({ message: "Image upload failed", error: uploadError });
-//           }
-  
-//           // Check if the user exists
-//           const existingUser = await User.findById(user);
-//           if (!existingUser) {
-//               return res.status(404).json({ message: "User not found" });
-//           }
-  
-//           // Update the user's profile picture in the database
-//           const updatedUser = await User.findByIdAndUpdate(user, {
-//               profilePicture: uploadResponse.secure_url}, // Use the URL returned from Cloudinary
-//            { new: true });
-  
-//           // Check if the update was successful
-//           if (!updatedUser) {
-//               return res.status(500).json({ message: "Failed to update profile picture" });
-//           }
-  
-//           // Send success response
-//           res.status(200).json({ message: "Profile picture updated successfully", updatedUser });
-//       } catch (error) {
-//           console.error("Profile picture update failed:", error); // Log the error
-//           res.status(500).json({ message: "Profile picture update failed", error });
-//       }
-//   }
-
-
-
 export const updateProfile = async (req, res) => {
-    try {
-      const { profilePicture } = req.body;
-      const userId = req.user._id;
-  
-      if (!profilePicture) {
-        return res.status(400).json({ message: "Profile pic is required" });
-      }
-  
+    try{
+        const {profilePicture} = req.body;
+        const user = req.user._id;
+
+        if(!profilePicture){
+                    return res.status(400).json({message: "Profile picture is required"});
+                }
+
+        //cloudinary is just a bucket for images
+        // const uploadResponse = await cloudinary.uploader.upload(profilePicture, {
+        //     folder: 'profile-pictures',
+        // });
         const uploadResponse = await cloudinary.uploader.upload(profilePicture);
-      const updatedUser = await User.findByIdAndUpdate(
-        userId,
-        { profilePicture: uploadResponse.secure_url },
-        { new: true }
-      );
-  
-      res.status(200).json(updatedUser);
+
+        const updatedUser = await User.findByIdAndUpdate(user, { //we need to update user by its id for profile pictur  e
+            profilePicture: uploadResponse.secure_url, //this is the url that cloudinary gives you back...
+        }, {new: true}); //this will give the lastest object of user after it has updated..
+       
+
+        res.status(200).json({message: "Profile picture updated successfully", updatedUser});
     } catch (error) {
-      console.log("error in update profile:", error);
-      res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({message: "Profile picture update failed", error});
+    }
+}
+
+// export const checkAuth = async (req, res) => {
+//     try{
+//         const user = req.user;
+//         res.status(200).json({user});
+//     } catch (error) {
+//         res.status(500).json({message: "Check auth failed", error});
+//     }
+// }
+export const checkAuth = (req, res) => {
+    try {
+      res.status(200).json(req.user);
+    } catch (error) {
+      console.log("Error in checkAuth controller", error.message);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   };
   
 
-export const checkAuth = async (req, res) => {
-    try{
-        const user = req.user;
-        res.status(200).json({user});
-    } catch (error) {
-        res.status(500).json({message: "Check auth failed", error});
-    }
-};
 
 
 
