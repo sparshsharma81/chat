@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config(); --iski jarurat nahi 
 
 export const connectDB = async () => {
     //we are using async function to connect to the database
@@ -12,7 +12,7 @@ export const connectDB = async () => {
             throw new Error('MONGO_URI is not defined in environment variables');
         }
         const connect = await mongoose.connect(process.env.MONGO_URI);
-        console.log('Connected to MongoDB');
+        console.log(`Connected to MongoDB: ${connect.connection.host}`);
     } catch (error) {
         console.log('patanhi kya galti aari hai..', error);
     }

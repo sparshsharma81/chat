@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt'; 
+// import bcrypt from 'bcrypt'; 
 //this file is needed because we want to hash the password before storing it in the database
 
 

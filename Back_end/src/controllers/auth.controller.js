@@ -66,7 +66,7 @@ export const signup = async (req, res) => {
         //we write address after newUser._id , so that it can send the cookie to response 
     //    await newUser.save();
         // generateToken(newUser._id, res);
-        return res.status(201).json({
+       res.status(201).json({
             _id: newUser._id,
             fullName: newUser.fullName,
             email: newUser.email,
@@ -171,7 +171,7 @@ export const logout = (req, res) => {
         res.cookie('jwt', '', {maxAge: 0});
         //maxAge is the time for which the cookie will be stored
         //0 means that the cookie will be deleted
-        return res.status(200).json({message: "Logged out successfully"});
+        res.status(200).json({message: "Logged out successfully"});
     } catch (error) {
         res.status(500).json({message: "Logout failed", error});
     }
@@ -283,6 +283,7 @@ export const checkAuth = async (req, res) => {
         const user = req.user;
         res.status(200).json({user});
     } catch (error) {
+        console.log("error in check auth:", error);
         res.status(500).json({message: "Check auth failed", error});
     }
 };

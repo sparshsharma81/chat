@@ -15,8 +15,8 @@ export const protectRoute = async (req, res, next) => { //this next function is 
 
 console.log(token);
 
-    if(token === '') { //if the token is not present then we will return the message that unauthorized
-        return res.status(401).json({message: "Unauthorized user"});
+    if(!token) { //if the token is not present then we will return the message that unauthorized
+        return res.status(401).json({message: "Unauthorized user - no token provided"});
     }
 
 //now in order to grab token from cookie..we are using cookie.parse package
@@ -34,19 +34,23 @@ console.log(token);
 //     return res.status(401).json({message: "Unauthorized"});
 //     //this means that the user is oversmart and he is trying to hack the system
 // } --this code is showing error..so we have removed that..
+if (!decoded) {
+    return res.status(401).json({ message: "Unauthorized - Invalid Token" });
+  }
+
 
 
 const user = await User.findById(decoded.userId).select('-password');
-console.log(user);
+// console.log(user);
 //now we will find the user by the id and return the user without the password
 //basically we are selecting the user by the id and returning the user without the password
     //this is deselect ---- '-password'
     //this will find the user by the id and return the user without the password
 
     //now one more check...]\
-    console.log(user);
+    // console.log(user);
     if(!user){
-        return res.status(401).json({message: "Unauthorized user not found..."});
+        return res.status(401).json({message: "User not found..."});
     }
     req.user = user; //this will return the user to the request object 
     //and will make the user work..
@@ -56,6 +60,7 @@ console.log(user);
     
         
 }catch(error){
+    console.log("error in protect middleware:", error);
     res.status(500).json({message: "Internal server error", error});
 }
 

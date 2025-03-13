@@ -1,5 +1,5 @@
 import express from 'express';
-const router = express.Router();
+
 import { signup, login, logout, checkAuth ,updateProfile} from '../controllers/auth.controller.js';
 import { protectRoute } from '../middleware/auth.middleware.js'; ///we are importing the protectRoute middleware
 
@@ -25,6 +25,7 @@ import { protectRoute } from '../middleware/auth.middleware.js'; ///we are impor
 //here we are using the post method to send the data to the database
 
 
+const router = express.Router();
 
 router.post('/signup', signup); //hame ise post karne hai because we are sending the data to the database
 router.post('/login', login);

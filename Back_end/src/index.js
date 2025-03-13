@@ -1,9 +1,15 @@
 
 import express from 'express';
 import dotenv from 'dotenv'; //this is the way to import the dotenv module in the es modules
-dotenv.config(); //this is the way to load the environment variables from the .env file
+
 import { connectDB } from './lib/db.js'; 
 import cookieParser from 'cookie-parser';
+import path from 'path';
+//this is the way to import the path module in the es modules
+//basically we are importing the path module from the path package
+//this is the way to get the path of the file
+
+
 //this is the way to import the cookie-parser module in the es modules
 //basically we are importing the cookie-parser module from the cookie-parser package
 //this is the way to parse the cookies from the request
@@ -43,7 +49,11 @@ import cors from 'cors';
 import { app, server } from './lib/socket.js';
 
 
-const PORT = process.env.PORT || 5001;
+dotenv.config(); //this is the way to load the environment variables from the .env file
+
+const PORT = process.env.PORT;
+
+const __dirname = path.resolve(); 
 
 
 
@@ -64,13 +74,22 @@ app.use(cors({ //this take an object as an argument and then we can pass the opt
     credentials: true, //this is the way to allow the credentials to be sent to the backend
 }));
 
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/messages", messageRoutes); //this is the way to use the message routes
 // app.use("/api/users", userRoutes); //this is the way to use the user routes
 
-app.use("/api/v1/auth", authRoutes);
-server.listen(PORT, async () => {
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../Front_end/dist")));
+  
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../Front_end", "dist", "index.html"));
+    });
+  }
+
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    await connectDB();
+    connectDB();
 
     //we are using async function to connect to the database
     //this will return a promise
