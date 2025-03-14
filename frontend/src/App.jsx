@@ -64,17 +64,26 @@ console.log("authUser",authUser);
     <div data-theme={theme}>
       <Navbar />
       <Routes>
-          <Route path="/" element={
-            authUser ? <HomePage authUser={authUser}   /> : <Navigate to="/login" />} /> {/*this is the home page*/}
+          {/* <Route path="/" element={authUser ? <HomePage authUser={authUser}   /> : <Navigate to="/login" />} /> this is the home page */}
 {/*logic behind this is basically if the user is not authenticated..then we will redirect him to the login page..*/}
 
 
 
-        <Route path="/SignupPage" element={authUser ? <Navigate to="/" />:<SignupPage /> } /> {/*this is the about page*/}
-        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} /> {/*this is the contact page*/}
-        <Route path="/settings" element={authUser ? <SettingsPage /> : <Navigate to="/login" />} /> {/*this is the login page*/}
-        <Route path="/profile"element={authUser ? <ProfilePage /> : <Navigate to="/login" />} /> {/*this is the register page*/}
+        {/* <Route path="/SignupPage" element={authUser ? <Navigate to="/" />:<SignupPage /> } /> this is the about page */}
+        {/* <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} /> this is the contact page */}
+        {/* <Route path="/settings" element={authUser ? <SettingsPage /> : <Navigate to="/login" />} /> this is the login page */}
+        {/* <Route path="/profile"element={authUser ? <ProfilePage /> : <Navigate to="/login" />} /> this is the register page */}
       {/*we will create all these pages under the pages folder*/}
+
+
+     
+        <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
+        <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
+        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
+     
+
       </Routes>
       <Toaster position="top-center" reverseOrder={false}/>
     </div>

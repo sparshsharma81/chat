@@ -74,8 +74,8 @@ app.use(cors({ //this take an object as an argument and then we can pass the opt
     credentials: true, //this is the way to allow the credentials to be sent to the backend
 }));
 
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/messages", messageRoutes); //this is the way to use the message routes
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes); //this is the way to use the message routes
 // app.use("/api/users", userRoutes); //this is the way to use the user routes
 
 

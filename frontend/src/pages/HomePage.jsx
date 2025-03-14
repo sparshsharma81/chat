@@ -2,7 +2,7 @@
 
 import { useChatStore } from "../store/useChatStore"; //this is the chat store which we have created in the store folder 
 //we are importing the useChatStore from the useChatStore.js file which we have created in the store folder  
-import React from 'react'
+// import React from 'react' ---fast refresh is not working..so we are not using it..
 
 
 import Sidebar from "../components/Sidebar"; //this is the sidebar component which we have created in the components folder 

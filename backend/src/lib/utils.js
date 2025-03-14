@@ -15,7 +15,7 @@ export const generateToken = (userId, res)=>{
     //MEANS AFTER 7 DAYS THE TOKEN WILL BE INVALID..
 
     res.cookie('jwt',token,{
-        maxAge:7*24*60*60*1000, //7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
         httpOnly:true, //prevents client side js from accessing the cookie
         sameSite:'strict', //prevents the cookie from being sent along with requests to other sites
         secure:process.env.NODE_ENV !== 'development', //only send the cookie over https in production
