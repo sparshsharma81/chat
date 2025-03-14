@@ -49,8 +49,8 @@ useEffect(() => {
 
 if(isCheckingAuth && !authUser){ 
   return(
-    <div className="size-10 animate-spin rounded-full border-b-2 border-t-2 border-primary">
-      <Loader className="size-10 animate-spin" /> 
+    <div className="flex items-center justify-center h-screen">
+      <Loader className="size-10 animate-spin " /> 
      {/*we need to import the Loader from the lucide-react library..*/}
     </div>
   );

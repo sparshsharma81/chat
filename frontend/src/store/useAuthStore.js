@@ -53,8 +53,9 @@ export const useAuthStore = create((set, get) => ({ //using this get method we c
     set({isSigningUp:true}); //ham apni signup state ko true kardege
     try {
         const res= await axiosInstance.post("/auth/signup", data);
+         set({authUser:res.data});//the data is authenticated as soon as the user signup
         toast.success("Account created successfully"); 
-        set({authUser:res.data});//the data is authenticated as soon as the user signup
+       
         get().connectSocket();
         
     } catch (error) {

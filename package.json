@@ -2,7 +2,7 @@
   "name": "chat_latest",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/src/index.js",
+  "main": "backend/evsrc/index.js",
   "scripts": {
     "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
    "start": "npm run start --prefix backend"
