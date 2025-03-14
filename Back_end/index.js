@@ -2,7 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv'; //this is the way to import the dotenv module in the es modules
 
-import { connectDB } from './lib/db.js'; 
+import { connectDB } from './src/lib/db.js'; 
 import cookieParser from 'cookie-parser';
 import path from 'path';
 //this is the way to import the path module in the es modules
@@ -38,15 +38,15 @@ we are genz --so working like genz.... #SPAARSH
 */
 
 
-import authRoutes from './routes/auth.route.js';
-import messageRoutes from './routes/message.route.js';
+import authRoutes from './src/routes/auth.route.js';
+import messageRoutes from './src/routes/message.route.js';
 import cors from 'cors'; 
 //this is the way to import the cors module in the es modules 
 //this is a way to allow cors origin requests from the frontend to the backend
 // const app = express(); ---we do not need that as we have already created the app in the socket.js file 
 
 
-import { app, server } from './lib/socket.js';
+import { app, server } from './src/lib/socket.js';
 
 
 dotenv.config(); //this is the way to load the environment variables from the .env file
