@@ -4,10 +4,10 @@
   "engines": {
     "node": "20.x"
   },
-  "main": "index.js",
+  "main": "Back_end/src/index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+     "start": "node Back_end/src/index.js"
   },
   "keywords": [],
   "author": "",
