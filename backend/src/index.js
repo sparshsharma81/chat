@@ -80,10 +80,10 @@ app.use("/api/v1/messages", messageRoutes); //this is the way to use the message
 
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../Front_end/dist")));
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
   
     app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../Front_end", "dist", "index.html"));
+      res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     });
   }
 

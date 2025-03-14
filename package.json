@@ -1,20 +1,15 @@
 {
   "name": "chat_latest",
   "version": "1.0.0",
-  "main": "Back_end/src/index.js",
+  "description": "",
+  "main": "backend/src/index.js",
   "scripts": {
-    "build": "npm install --prefix Back_end && npm install --prefix Front_end && npm run build --prefix Front_end",
-    "start": "node Back_end/src/index.js"
-  },
-  "engines": {
-    "node": "20.x"
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+   "start": "npm run start --prefix backend"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "amqplib": "^0.10.5",
-    "bcrypt": "^5.1.1"
-  }
+  "license": "ISC"
+ 
+  
 }
