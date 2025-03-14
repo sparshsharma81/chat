@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm install --prefix Back_end && npm install --prefix Front_end && npm run build --prefix Front_end",
-     "start": "node Back_end/index.js"
+     "start": "cd Back_end && node index.js"
   },
   "engines": {
     "node": "20.x"
