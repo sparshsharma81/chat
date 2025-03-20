@@ -57,9 +57,11 @@ const __dirname = path.resolve();
 
 
 
-app.use(express.json()); 
+app.use(express.json({limit: "50mb"})); 
 //ye json ke data ko parse karega and then it will be converted into the javascript object 
 //basically ye json data extract krke send karega...
+
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie ko parse karna chahte hai 
 //#ham ise call kar rahe hai...

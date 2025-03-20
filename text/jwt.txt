@@ -1,0 +1,154 @@
+jwt token algorithm
+a jwt is composed of 3 parts:
+1. header
+2. payload
+3. signature
+
+the header and payload are base64 encoded and then joined by a dot.
+the signature is a base64 encoded string of the header and payload joined by a dot and a secret key.
+
+the header and payload are json objects that contain information about the token.
+the header typically contains the type of token (JWT) and the algorithm used to sign the token.
+the payload contains the claims, which are statements about the user.
+
+header contains two parts 
+type of token (JWT)
+algorithm used to sign the token (HS256)
+
+payload contains two parts
+claims
+expiration time 
+
+alg (algorithm)
+typ (type)  
+
+
+2.payload
+contains the claims or statements about the user and any additional data
+it consists of 3 parts
+1. registered claims
+PREDEFINED CLAIMS standardized claims that are required for the token to be valid   
+
+2. public claims
+PUBLIC CLAIMS are custom claims that are not standardized and can be used to share information
+ between parties that agree on a common set of claims.
+
+3. private claims
+PRIVATE CLAIMS are custom claims that are not standardized and are used to share 
+
+information between parties that agree on a common set of claims.
+
+
+
+
+
+3.signature 
+verifies the integrity of the token and the authenticity of the sender
+ and ensures that the token has not been tampered with.
+signature check karta hai token expire to nahi ho rakha hai 
+
+
+
+jwt 
+
+
+header 
+
+{
+
+}
+
+
+payload
+
+{
+    "sub" : "1234567890",
+    "name" : "John Doe",
+    "admin" : true
+}
+
+
+
+signature
+HMACSHA256(
+    base64UrlEncode(header) + "." +
+    base64UrlEncode(payload),
+    secret
+)
+
+
+
+
+
+
+
+
+WORKING OF JWT
+1.USER ENTERS CREDENTIALS
+2.POST REQUEST WITH USERNAME AND PASSWORD 
+3.CREATES JWT WITH A SECRET KEY
+4.RETURN JWT TO THE USER
+5.REQUESTS TO PROTECTED ROUTES INCLUDE JWT IN THE HEADER
+6.REQUESTS WITH JWT IN AUTHENTICATION MIDDLEWARE
+7.CHECK JWT SIGNATURE, GET USER INFO FROM JWT
+8.SEND RESPONSE TO THE USER
+
+
+
+
+jwt functions
+
+in the context of json web token(JWT).
+jwt.sign() and jwt.verify() are used to create and verify tokens. 
+
+jwt.sign() and jwt.verify() are two crucial functions provided by the jsonwebtoken library. in node.js 
+
+
+
+jwt.sign()
+
+the jwt.sign() function is used to create a new token based on provided payload and secret key.
+
+payload is hte data you want to include in token.
+it can be json object containing user information, metadata or other relevant data.
+
+secretOrPrivateKey is a string or buffer containing the secret key or private key used to sign the token.
+it can be a cryptographic key or a string. 
+
+
+
+
+const jwt = require('jsonwebtoken');
+
+const payload = {
+    userId: 123,
+    username: 'john_doe'
+};
+
+const secretKey = 'your_secret_key';
+
+const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+
+
+
+
+
+jwt.verify()
+
+the jwt.verify() function is used to verify the authenticity of a token.
+it checks if the token is valid and has not expired.
+
+
+this function is used to verify and decode a JWT token to retrieve the orignal payload.
+
+it takes three arguments:
+token:the jwt token to verify
+secretOrPublicKey:the secret key or public key used to verify the token.
+options:an object containing optional parameters such as expiration time, audience, and issuer.
+
+
+
+
+
+
+

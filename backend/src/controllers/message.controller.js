@@ -5,6 +5,7 @@ import cloudinary from '../lib/cloudinary.js';
 // import Message from '../models/message.model.js';    
 
 import { getReceiverSocketId, io } from '../lib/socket.js';
+// import CompressImage from './CompressImage.js';
 
 export const getUsersForSidebar = async (req, res) => {
     try{
@@ -58,6 +59,8 @@ export const sendMessage = async (req, res) => {
 
         let imageUrl;
         if(image){
+
+            
 
             //uploading base64 url to the cloudinary....
             const uploadResponse = await cloudinary.uploader.upload(image); //this will upload the image to

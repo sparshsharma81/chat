@@ -1,0 +1,25 @@
+now for the front-end part ---i am using react
+installing the basic function 
+
+----- npm create vite@latest
+this will generate the react vite applications
+
+Now for the backend purpose
+npm init-y 
+now in the backend --- we are installing...
+npm i express mongoose dotenv jsonwebtoken bcryptjs cookie-parser cloudinary socket.io 
+these are the package that we are installing for backend 
+
+also we are installing nodemon for good development
+
+in the package.json file we are adding the following code
+"scripts": {
+    
+    "dev": "nodemon index.js"
+    //this will run the server using nodemon ...
+  },
+
+  and in the type
+  "type": "module", ---this will tell that our project is using the es modules
+  instead of common js ---old module...
+

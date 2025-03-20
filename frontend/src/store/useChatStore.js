@@ -65,22 +65,46 @@ export const useChatStore = create((set,get) => ({
 
 
 
-     subscribeToMessages: () => { //this is similar to listen.. basically use effect
-        //we simply want that when the user will get the new message then it will send to the devices...
-    const { selectedUser } = get();
-    if (!selectedUser) return;//if there is no selected chat..then get out immediately
+    
+      subscribeToMessages: () => { 
+        const { selectedUser } = get();
+        if (!selectedUser) return;
+      
+        const socket = useAuthStore.getState().socket;
+      
+        socket.on("newMessage", (newMessage) => {
+          const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
+          if (!isMessageSentFromSelectedUser) return;
+      
+          set({
+            messages: [...get().messages, newMessage],
+          });
 
-    const socket = useAuthStore.getState().socket; //the socket.on is on the auth store and we can get it using the const socket = useAuthStore.getState().socket
+          const senderName = selectedUser?.fullName || "Unknown User"; // Fallback name
+          const senderIcon = selectedUser?.profilePicture || "/default-icon.png"; // Fallback icon
 
-    socket.on("newMessage", (newMessage) => {
-      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
-
-      set({
-        messages: [...get().messages, newMessage], //we are keeping all the preivous message in the history and adding new message at the end
-      });
-    });
-  },
+          
+      
+          // Check if notifications are allowed
+          if (Notification.permission === "granted") {
+            new Notification(`New Message from ${senderName}`, {
+              body: newMessage.text, // Message content
+              icon:senderIcon, // Set a custom icon (optional)
+            });
+          } else if (Notification.permission !== "denied") {
+            // Ask for permission if not already granted/denied
+            Notification.requestPermission().then(permission => {
+              if (permission === "granted") {
+                new Notification(`New Message from ${senderIcon}`, {
+                  body: newMessage.text,
+                  icon: senderIcon,
+                });
+              }
+            });
+          }
+        });
+      },
+       
 
   unsubscribeFromMessages: () => { //now sice we have subscribed to the messages..we need to unsubscribe from the messages 
     const socket = useAuthStore.getState().socket; 

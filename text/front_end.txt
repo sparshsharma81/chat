@@ -1,0 +1,137 @@
+basically the thing is that after installing the npm create vite@latest, the project will run react
+and in order to install the tailwindcss..
+we need to run the following commands:
+npm install tailwindcss @tailwindcss/vite
+
+and then in the vite.config.js file, we need to add the following code:
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})  
+and after that simply add 
+@import "tailwindcss";
+ in the index.css file.
+
+
+ now after using the tailwind css..we are using daisy us
+ which has a bunch of components..
+
+ basically when we go to daisy ui website..
+  we will go to components and then search skeleton 
+
+
+great..now in order to install it
+npm i -D daisyui@latest
+
+and in order to run the index.css we need to write
+@plugin "daisyui";
+after @import "tailwindcss";
+
+
+
+<BrowserRouter>
+    <App />
+</BrowserRouter>  
+using this we can use the routes in the app.jsx file
+also it is necessary to import the BrowserRouter in the main.jsx file
+
+
+now we need to create routes...
+in the src page ..we will create folder of pages...
+and ni the pages we will create jsx files ---basically routes 
+for the smooth working of routes
+,,certainly we need to create 5 routes ..basically 5 pages
+
+and make sure that npm i react-router-dom 
+is to be installed for the working out with routes
+
+
+
+now we are not using fetch api..we are using axios 
+axios are lot more convient...
+
+so we are using  ----npm install axios zustand
+npm i axios
+npm i zustand ---zustand is a state management library 
+
+
+
+now we are creating axios..basically in the src folder we will create a lib folder and in that..
+we are creating a file of axios.js
+and in that 
+
+///here we are creating instance that we can use in the app.jsx file
+import axios from "axios";
+
+export const axiosInstance = axios.create({ ///this will take an object..
+    baseURL: "http://localhost:5001/api/v1",  //this will create an object
+    //ye vo backend ka url hai.. jisme ham use karege...
+    //we are using the port number 5001..
+
+    //we will send the cookies with every single credental requests 
+    withCredentials: true, //this will send the cookies with every single credential request 
+});
+
+
+
+this withCredentials is used to send the cookies with every single credential request  
+
+
+zustand is the global state management library.. 
+
+like we have a user state..
+like we have created state in the app.jsx file..
+and we are going to use that state in the app.jsx file..
+like we are going to use that in home page, setting page, 
+profile page, login page, signup page.. 
+so in order to use that state in the app.jsx file..
+we need to create a store..
+and here comes zustand..
+
+
+
+so let us say ---create a store folder.
+and in that folder we will create a file of userStore.js
+
+
+
+
+
+
+
+we will gonna install npm i lucide-react for the <Loader /> component 
+--which is basically a loading spinner..
+
+lucid-react is a library of icons.. 
+
+
+
+
+
+after creating the signup page..
+
+we are also installing a react page called toast
+npm i react-hot-toast
+
+
+
+
+
+now since we have implemented the working of different routes and components in the react..
+now it is the time to implement the socket.io 
+which is used for real time message transfer
+
+
+socket.oi 
+
+there are two types of socket.io
+1. client side socket
+2. server side socket 
+
+
+
+so for the front-end we gonna install npm install socket.io-client
+
+now we will gonna use this in useAuthStore.js file becausae when the user will log in ..
+then it will be used in that function

@@ -1,0 +1,113 @@
+backend jaruri hai....
+cursor is used here for coding....
+we are putting our index.js file in Backend folder and  in the src folder
+putting this src is the best practice
+
+
+and the next step is we are building the routes for the chat application
+we have build signup and login routes
+
+
+
+now after building the routes and connect it to the file..
+we will import mongo files...
+and after that .. in the lib folder...we will create a new file called db.js
+and in this file we will connect to the database...
+
+
+
+
+
+now after connecting to the mongodb database...
+in the mongodb database we need to go to network and create new connection
+where we allow access to any ip address
+
+
+
+and the basic approach of mongo db is that it will create two sections ..
+1.for user verfication type like email, password,fullname , profile picture
+2.for chat type like messages, timestamps, image, text etc.
+
+and on the other hand we will also have _id which is basically the id of the user and 
+mongo db will automatically generate the id for the user
+and also we can add createdAt and updatedAt fields in the database 
+so we can have like member since...
+
+
+
+first we create user model and then we create message model
+
+
+authentication approach...
+jaise user ko signup karna hai..
+to user click karega button ko..
+fir button ke click hone par trigger request generate hogi...
+joki client pr jayegi..
+request to /api/auth/signup will be generated... 
+fir api gateway aur fir database me jayega...
+
+fir ham database me user create karege...aur ham token generate karege... 
+and then we will send the token to the client...
+send jwt in cookies 
+and then display success message...
+
+
+
+
+
+in order to check our get post are working fine..we are using the postman
+
+it is free software...
+
+and also we are creating a protect route for updation of profile picture
+and when the user is found in the database 
+then we will return everything except the password 
+we will deselect the password for the user...
+
+cloudinary is used for storing the profile picture in the cloud
+the cloudinary is a paid service but offers a free plan for 1000 images 
+and it is used for storing the images in the cloud
+
+
+in the cloudinary we need to create a new account and then we need to go to the dashboard
+basically in the dashboard there is a cloudinary url... basically cloud name
+
+
+dxg2dofgu
+
+
+and we will paste that into our .env file...
+
+
+
+
+
+
+and then we need to go to the cloudinary and then we need to go to the upload and then we need to go to the add new upload 
+
+
+
+and if we want to check our data on mongodb ...
+in the backend access...we should allow the access from anywhere 
+
+we can go to cluster then 
+browse collections...
+
+then there go to test..
+then user
+//and we can see our data ...
+
+
+
+
+
+now after we have build the check route...
+we are implementing the message model...
+
+
+now the basic thing is that first we create getuserbyforsidebar route
+then we just create route
+
+and when we click on that ..we want that when the messages should be displayed in proper order
+
+now till the time our work is most done except implementing other frameworks like socket.io or like this..
