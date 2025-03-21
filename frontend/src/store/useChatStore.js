@@ -104,7 +104,7 @@ export const useChatStore = create((set,get) => ({
           }
         });
       },
-       
+      
 
   unsubscribeFromMessages: () => { //now sice we have subscribed to the messages..we need to unsubscribe from the messages 
     const socket = useAuthStore.getState().socket; 
