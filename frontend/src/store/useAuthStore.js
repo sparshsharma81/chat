@@ -55,9 +55,9 @@ export const useAuthStore = create((set, get) => ({ //using this get method we c
         const res= await axiosInstance.post("/auth/signup", data);
          set({authUser:res.data});//the data is authenticated as soon as the user signup
          setTimeout(()=>{
-           toast.success("account to ban gya ...ab MR.SPARSH(owner) ko bhi message kro" , {autoClose:7000});
+           toast.success("account to ban gya ...ab MR.SPARSH(owner) ko bhi message kro" , {autoClose:7500});
          },2000)
-        toast.success("ram ram bhai...");
+        toast.success("ram ram bhai...",{autoClose:6000});
        
        
         get().connectSocket();
@@ -68,24 +68,24 @@ export const useAuthStore = create((set, get) => ({ //using this get method we c
 
         // toast.error("ya apni email id ko bhi change krke dekh le...");
         // console.log(error.response);
-        toast.error("bhai..aapke fullname ya email se already account exist karta hai...",{autoClose:9000});
+        toast.error("bhai..aapke fullname ya email se already account exist karta hai...",{autoClose:20000});
 
         setTimeout(()=>{
-            toast.error("dusri email id se try krke dekho...",{autoClose:7000});
+            toast.error("dusri email id se try krke dekho...",{autoClose:20000});
         },3000); //delay of 3 second
 
         setTimeout(()=>{
-          toast.error("agar fir bhi ghani dikkat aari se...to full name bhi change karlena...",{autoClose:6000});
+          toast.error("agar fir bhi ghani dikkat aari se...to full name bhi change karlena...",{autoClose:20000});
         },6000); //delay of 2 seconds kar dega ye
 
         setTimeout(()=>{
-                  toast.error("Baaki fir bhi koi dikkat ho..to bina sharmahe sparsh(owner) se puch lena", {autoClose:4500});
+                  toast.error("Baaki fir bhi koi dikkat ho..to bina sharmahe sparsh(owner) se puch lena", {autoClose:20x000});
 
         },9000);
 
 
         setTimeout(()=>{
-          toast.error("Chalo ab me inn messages ko clear kar deta hu...ram ram...",{autoClose:2000});
+          toast.error("Chalo ab me inn messages ko clear kar deta hu...ram ram...",{autoClose:4000});
         },11000);
         
         //autoclose se basically 10seconds tak toast message rahega
@@ -145,6 +145,9 @@ login: async (data) => {
       },3000);
       
       toast.error("ITNI SUTRI SHAKAL HAI KI MERA SYSTUM HI HANG HO GAYA",{autoClose:8000});
+      setTimeout(()=>{
+        toast.error("image ke size ko thoda sa reduce kar doge..to meharbaani hogi...",{autoClose:8000});
+      })
     } finally {
       set({ isUpdatingProfile: false });
     }
