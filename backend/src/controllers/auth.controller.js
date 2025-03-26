@@ -116,7 +116,7 @@ export const login = async (req, res) => {
         const {email, password} = req.body;
         const user = await User.findOne({email});
         if(!user) {
-            return res.status(400).json({message: "User not found"});
+            return res.status(400).json({message: "bhai ye account exist nahi karta..."});
             //if the user is not found then we will return the message that user not found
         }
         const isPasswordCorrect = await bcrypt.compare(password, user.password); 
@@ -126,7 +126,7 @@ export const login = async (req, res) => {
         //basically it will return true if the password is correct and false if the password is incorrect
         //it will bcrypt the password
         if(!isPasswordCorrect) {
-            return res.status(400).json({message: "Invalid password"});
+            return res.status(400).json({message: "bhai password galat hai..."});
             //if the password is incorrect then we will return the message that invalid password
         } 
 

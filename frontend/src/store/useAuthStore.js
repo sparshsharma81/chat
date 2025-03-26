@@ -54,13 +54,45 @@ export const useAuthStore = create((set, get) => ({ //using this get method we c
     try {
         const res= await axiosInstance.post("/auth/signup", data);
          set({authUser:res.data});//the data is authenticated as soon as the user signup
-        toast.success("Account created successfully"); 
+         setTimeout(()=>{
+           toast.success("account to ban gya ...ab MR.SPARSH(owner) ko bhi message kro" , {autoClose:7000});
+         },2000)
+        toast.success("ram ram bhai...");
+       
        
         get().connectSocket();
         
     } catch (error) {
-        toast.error("ghani dikkat aari see" , error.response.data.message);
+        // toast.error("ghani dikkat aari see" , error.response.data.message);
+        // toast.error("bhai shayad apna naam change karke try kr....",{autoClose:10000});
+
+        // toast.error("ya apni email id ko bhi change krke dekh le...");
+        // console.log(error.response);
+        toast.error("bhai..aapke fullname ya email se already account exist karta hai...",{autoClose:9000});
+
+        setTimeout(()=>{
+            toast.error("dusri email id se try krke dekho...",{autoClose:7000});
+        },3000); //delay of 3 second
+
+        setTimeout(()=>{
+          toast.error("agar fir bhi ghani dikkat aari se...to full name bhi change karlena...",{autoClose:6000});
+        },6000); //delay of 2 seconds kar dega ye
+
+        setTimeout(()=>{
+                  toast.error("Baaki fir bhi koi dikkat ho..to bina sharmahe sparsh(owner) se puch lena", {autoClose:4500});
+
+        },9000);
+
+
+        setTimeout(()=>{
+          toast.error("Chalo ab me inn messages ko clear kar deta hu...ram ram...",{autoClose:2000});
+        },11000);
         
+        //autoclose se basically 10seconds tak toast message rahega
+
+              
+        
+
     }finally{
         set({isSigningUp:false});
     }
@@ -70,7 +102,7 @@ logout: async () => {
     try {
         await axiosInstance.post("/auth/logout");
          set({authUser:null});
-         toast.success("pheli fursat mein nikal");
+         toast.success("dubara jarur aana...");
          get().disconnectSocket();
     } catch (error) {
         toast.error("ruka roh yahi", error.response.data.message);
@@ -83,7 +115,7 @@ login: async (data) => {
     try {
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
-      toast.success("Logged in successfully");
+      toast.success("RAM RAM ...aapka sawagat hai...");
 
 
       get().connectSocket();
@@ -102,10 +134,17 @@ login: async (data) => {
     try {
       const res = await axiosInstance.put("/auth/update-profile", data);
       set({ authUser: res.data });
-      toast.success("Profile updated successfully");
+      toast.success("GHANA SUTRA LAGHRA IBKI BAARI",{autoClose:10});
     } catch (error) {
       console.log("error in update profile:", error);
-      toast.error(error.response.data.message);
+      setTimeout(()=>{
+        toast.error("niche dekho...ye dikkat aari hai..padh lo",{autoClose:7000});
+      },2000);
+      setTimeout(()=>{
+        toast.error(error.response.data.message,{autoClose:6000});
+      },3000);
+      
+      toast.error("ITNI SUTRI SHAKAL HAI KI MERA SYSTUM HI HANG HO GAYA",{autoClose:8000});
     } finally {
       set({ isUpdatingProfile: false });
     }
