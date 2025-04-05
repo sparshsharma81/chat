@@ -1,25 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { LogOut, MessageSquare, Settings, User, Bot, Laugh,Quote} from "lucide-react";
+import { LogOut, MessageSquare, Settings, User, Bot, Laugh, Quote } from "lucide-react";
 import { useState } from "react";
 import { getJoke } from "../api/joke";
-import GeminiChat from "./GeminiChat"; // hamara banaya hua chat componenet yaha se import hoga...
-import { getQuote } from "../api/quote"; //ye quotes display krega alert ki thrah
+import GeminiChat from "./GeminiChat"; // Your Gemini chat component
+import { getQuote } from "../api/quote"; // Your quote fetch function
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
-  const [showGemini, setShowGemini] = useState(false); // Toggle state ---react 
+  const [showGemini, setShowGemini] = useState(false); // Toggle state for Gemini
+  //bascially..isse jemni pr click krne pr uska text chnage hoga...
 
   const handleJokeClick = async () => {
     const joke = await getJoke();
-    alert(joke); // temporary – later you can show toast/modal instead
+    alert(joke); // You can replace with toast/modal later
   };
 
   const handleQuoteClick = async () => {
     const quote = await getQuote();
     alert(quote);
   };
-//ye quote wale button k liye
+
+  const handleGeminiToggle = () => {
+    setShowGemini((prev) => !prev);
+  };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -39,30 +44,40 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <button
-                className="btn btn-sm gap-2"
-                onClick={() => setShowGemini((prev) => !prev)}
-              >
+              {/* Gemini Toggle Button */}
+              <button onClick={handleGeminiToggle} className="btn btn-sm gap-2">
                 <Bot className="w-4 h-4" />
-                <span className="hidden sm:inline">Ask Gemini</span>
+                <span className="hidden sm:inline">
+                  {showGemini ? "Close Gemini" : "Ask Gemini"}
+                </span>
               </button>
 
+              {/* Joke Button */}
+              <button onClick={handleJokeClick} className="btn btn-sm gap-2">
+                <Laugh className="w-4 h-4" />
+                <span className="hidden sm:inline">Joke</span>
+              </button>
 
-               {/* 👇 New Joke Button */}
-            <button onClick={handleJokeClick} className="btn btn-sm gap-2">
-              <Laugh className="w-4 h-4" />
-              <span className="hidden sm:inline">Joke</span>
-            </button>
-            <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
-              <Quote className="w-4 h-4" />
-              <span className="hidden sm:inline">Quote</span>
-            </button>
+              <button
+        onClick={() => navigate("/shorts")}
+        className="btn btn btn-sm gap-2"
+      >
+        Shorts
+      </button>
 
+              {/* Quote Button */}
+              <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
+                <Quote className="w-4 h-4" />
+                <span className="hidden sm:inline">Quote</span>
+              </button>
+
+              {/* Settings */}
               <Link to={"/settings"} className="btn btn-sm gap-2">
                 <Settings className="w-4 h-4" />
                 <span className="hidden sm:inline">Settings</span>
               </Link>
 
+              {/* Authenticated User Options */}
               {authUser && (
                 <>
                   <Link to={"/profile"} className="btn btn-sm gap-2">
@@ -81,30 +96,28 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Floating GeminiChat panel */}
+      {/* Gemini Chat Panel */}
       {showGemini && (
-  <div
-    className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50 
-    bg-base-100 text-base-content shadow-xl rounded-2xl p-4 
-    border border-base-300 flex flex-col"
-  >
-    <div className="flex justify-between items-center mb-2">
-      <h3 className="font-semibold text-lg">Gemini Chat</h3>
-      <button
-        onClick={() => setShowGemini(false)}
-        className="text-red-500 hover:text-red-600"
-      >
-        ✕
-      </button>
-    </div>
+        <div
+          className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50 
+          bg-base-100 text-base-content shadow-xl rounded-2xl p-4 
+          border border-base-300 flex flex-col"
+        >
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold text-lg">Gemini Chat</h3>
+            <button
+              onClick={handleGeminiToggle}
+              className="text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
+          </div>
 
-    <div className="flex-1 overflow-y-auto">
-      <GeminiChat />
-    </div>
-  </div>
-)}
-
-
+          <div className="flex-1 overflow-y-auto">
+            <GeminiChat />
+          </div>
+        </div>
+      )}
     </>
   );
 };

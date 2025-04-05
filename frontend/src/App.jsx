@@ -17,6 +17,7 @@ import { useEffect } from "react"; //for the useEffect hook.. //just like await 
 import { Toaster } from "react-hot-toast"; //we are importing the toaster from the react-hot-toast library..
 
 // const {authUser ,checkAuth ,isCheckingAuth } = useAuthStore();
+import ShortsPlayer from "./pages/ShortsPage";
 
 
 
@@ -81,7 +82,7 @@ console.log("authUser",authUser);
 {/*logic behind this is basically if the user is not authenticated..then we will redirect him to the login page..*/}
 
 
-
+<Route path="/shorts" element={<ShortsPlayer />} />
         <Route path="/SignupPage" element={authUser ? <Navigate to="/" />:<SignupPage /> } /> {/*this is the about page*/}
         <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} /> {/*this is the contact page*/}
         <Route path="/settings" element={authUser ? <SettingsPage /> : <Navigate to="/login" />} /> {/*this is the login page*/}
