@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { LogOut, MessageSquare, Settings, User, Bot, Laugh} from "lucide-react";
+import { LogOut, MessageSquare, Settings, User, Bot, Laugh,Quote} from "lucide-react";
 import { useState } from "react";
 import { getJoke } from "../api/joke";
 import GeminiChat from "./GeminiChat"; // hamara banaya hua chat componenet yaha se import hoga...
+import { getQuote } from "../api/quote"; //ye quotes display krega alert ki thrah
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
@@ -13,6 +14,12 @@ const Navbar = () => {
     const joke = await getJoke();
     alert(joke); // temporary – later you can show toast/modal instead
   };
+
+  const handleQuoteClick = async () => {
+    const quote = await getQuote();
+    alert(quote);
+  };
+//ye quote wale button k liye
 
   return (
     <>
@@ -45,6 +52,10 @@ const Navbar = () => {
             <button onClick={handleJokeClick} className="btn btn-sm gap-2">
               <Laugh className="w-4 h-4" />
               <span className="hidden sm:inline">Joke</span>
+            </button>
+            <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
+              <Quote className="w-4 h-4" />
+              <span className="hidden sm:inline">Quote</span>
             </button>
 
               <Link to={"/settings"} className="btn btn-sm gap-2">
