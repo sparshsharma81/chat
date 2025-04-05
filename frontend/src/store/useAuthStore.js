@@ -79,7 +79,7 @@ export const useAuthStore = create((set, get) => ({ //using this get method we c
         },6000); //delay of 2 seconds kar dega ye
 
         setTimeout(()=>{
-                  toast.error("Baaki fir bhi koi dikkat ho..to bina sharmahe sparsh(owner) se puch lena", {autoClose:20x000});
+                  toast.error("Baaki fir bhi koi dikkat ho..to bina sharmahe sparsh(owner) se puch lena", {autoClose:20000});
 
         },9000);
 
