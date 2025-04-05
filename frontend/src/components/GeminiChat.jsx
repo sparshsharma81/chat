@@ -58,7 +58,8 @@ const GeminiChat = () => {
           <div className="chat chat-start">
             <div className="chat-bubble bg-base-200 text-base-content
  animate-pulse">
-              Gemini is typing...
+              {/* Gemini is typing... */}
+              Ruko jara..sabar karo
             </div>
           </div>
         )}

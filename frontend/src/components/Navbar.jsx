@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { LogOut, MessageSquare, Settings, User, Bot } from "lucide-react";
+import { LogOut, MessageSquare, Settings, User, Bot, Laugh} from "lucide-react";
 import { useState } from "react";
+import { getJoke } from "../api/joke";
 import GeminiChat from "./GeminiChat"; // hamara banaya hua chat componenet yaha se import hoga...
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
   const [showGemini, setShowGemini] = useState(false); // Toggle state ---react 
+
+  const handleJokeClick = async () => {
+    const joke = await getJoke();
+    alert(joke); // temporary – later you can show toast/modal instead
+  };
 
   return (
     <>
@@ -33,6 +39,13 @@ const Navbar = () => {
                 <Bot className="w-4 h-4" />
                 <span className="hidden sm:inline">Ask Gemini</span>
               </button>
+
+
+               {/* 👇 New Joke Button */}
+            <button onClick={handleJokeClick} className="btn btn-sm gap-2">
+              <Laugh className="w-4 h-4" />
+              <span className="hidden sm:inline">Joke</span>
+            </button>
 
               <Link to={"/settings"} className="btn btn-sm gap-2">
                 <Settings className="w-4 h-4" />
