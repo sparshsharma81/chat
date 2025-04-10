@@ -5,6 +5,8 @@ import { useState } from "react";
 import { getJoke } from "../api/joke";
 import GeminiChat from "./GeminiChat"; // Your Gemini chat component
 import { getQuote } from "../api/quote"; // Your quote fetch function
+import {getHoroscope} from "../api/Horscope";
+import { getZodiacSign } from "../api/zodiac";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
@@ -16,6 +18,34 @@ const Navbar = () => {
     alert(joke); // You can replace with toast/modal later
   };
 
+
+  //ab ye hai horscope ke liye
+  const handleHoroscopeClick = async () => {
+    const name = prompt("Enter your name:");
+    const birth = prompt("Enter your birthdate (MM-DD):");
+  
+    if (!name || !birth) {
+      return alert("Please enter both name and birthdate.");
+    }
+  
+    // Split MM-DD into month and day
+    const [month, day] = birth.split("-").map(Number);
+  
+    // If invalid date format, show error
+    if (isNaN(month) || isNaN(day)) {
+      return alert("Invalid date format! Please use MM-DD.");
+    }
+  
+    const sign = getZodiacSign(month, day);
+    
+    try {
+      const horoscope = await getHoroscope(sign); // Call API to get horoscope
+      alert(`${name}, your ${sign} horoscope is:\n\n${horoscope}`);
+    } catch (error) {
+      alert("Error fetching horoscope. Please try again later.");
+    }
+  };
+  
   const handleQuoteClick = async () => {
     const quote = await getQuote();
     alert(quote);
@@ -70,6 +100,14 @@ const Navbar = () => {
                 <Quote className="w-4 h-4" />
                 <span className="hidden sm:inline">Quote</span>
               </button>
+{/* ye hai horscope ka button */}
+<button onClick={handleHoroscopeClick} className="btn btn-sm gap-2">
+  🔮 <span className="hidden sm:inline">Horoscope</span>
+</button>
+
+
+
+              
 
               {/* Settings */}
               <Link to={"/settings"} className="btn btn-sm gap-2">
