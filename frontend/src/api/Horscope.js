@@ -1,11 +1,12 @@
-export async function getHoroscope(sign = "aries", day = "today") {
+export async function getHoroscope(sign = "aries") {
     try {
-      const response = await fetch("https://aztro.sameerkumar.website/", {
-        method: "POST",
+      const response = await fetch("https://daily-rashifal-api.p.rapidapi.com/all", {
+        method: "GET",  // Use GET as it's the correct method for this endpoint
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded", // Set correct content type
+          "X-RapidAPI-Key": "c296a1adb4msh483412b9524cbc0p142aa4jsne9a4212852a9",  // Your RapidAPI key
+          "X-RapidAPI-Host": "daily-rashifal-api.p.rapidapi.com",  // Host header required by RapidAPI
+          "Content-Type": "application/json",  // Content type should be JSON
         },
-        body: `sign=${sign}&day=${day}`, // API expects the parameters to be sent in body
       });
   
       if (!response.ok) {
@@ -13,7 +14,7 @@ export async function getHoroscope(sign = "aries", day = "today") {
       }
   
       const data = await response.json();
-      return data.description;
+      return data[sign]?.description || "No horoscope available for this sign.";  // Return the description or a fallback message
     } catch (error) {
       console.error("Error fetching horoscope:", error);
       return "Failed to fetch horoscope.";
