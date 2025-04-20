@@ -4,7 +4,13 @@ import  toast  from "react-hot-toast";
 import { io } from "socket.io-client";
 // import { BASE_URL } from "../lib/constants";
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
+// const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/"; //isse nahi chalega
+
+
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:5001"
+  : "https://chat-mmln.onrender.com";
+
 
 export const useAuthStore = create((set, get) => ({ //using this get method we can access to socket..differnet functions withing the state function
     authUser: null, //initilially we do not no that the user is authenticated or not..so we need to check that...
