@@ -1,25 +1,24 @@
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { LogOut, MessageSquare, Settings, User, Bot, Laugh, Quote } from "lucide-react";
 import { useState } from "react";
 import { getJoke } from "../api/joke";
 import GeminiChat from "./GeminiChat"; // Your Gemini chat component
 import { getQuote } from "../api/quote"; // Your quote fetch function
-import {getHoroscope} from "../api/Horscope";
+import { getHoroscope } from "../api/Horscope";
 import { getZodiacSign } from "../api/zodiac";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
   const [showGemini, setShowGemini] = useState(false); // Toggle state for Gemini
-  //bascially..isse jemni pr click krne pr uska text chnage hoga...
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu state
 
   const handleJokeClick = async () => {
     const joke = await getJoke();
     alert(joke); // You can replace with toast/modal later
   };
 
-
-  //ab ye hai horscope ke liye
+  // Ab ye hai horoscope ke liye
   const handleHoroscopeClick = async () => {
     const name = prompt("Enter your name:");
     const birth = prompt("Enter your birthdate (MM-DD):");
@@ -45,7 +44,7 @@ const Navbar = () => {
       alert("Error fetching horoscope. Please try again later.");
     }
   };
-  
+
   const handleQuoteClick = async () => {
     const quote = await getQuote();
     alert(quote);
@@ -54,7 +53,13 @@ const Navbar = () => {
   const handleGeminiToggle = () => {
     setShowGemini((prev) => !prev);
   };
+
   const navigate = useNavigate();
+
+  // Toggle mobile menu visibility
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -69,72 +74,129 @@ const Navbar = () => {
                 <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MessageSquare className="w-5 h-5 text-primary" />
                   {/* <img src="/public/chatnow.png" alt="Chat logo" className="h-20 w-5"/> */}
-
                 </div>
                 <h1 className="text-lg font-bold">Chatnow</h1>
               </Link>
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Gemini Toggle Button */}
-              <button onClick={handleGeminiToggle} className="btn btn-sm gap-2">
-                <Bot className="w-4 h-4" />
-                <span className="hidden sm:inline">
-                  {showGemini ? "Close Gemini" : "Ask Gemini"}
-                </span>
+              {/* Mobile Hamburger Menu */}
+              <button onClick={toggleMobileMenu} className="lg:hidden">
+                <span className="text-primary">☰</span>
               </button>
 
-              {/* Joke Button */}
-              <button onClick={handleJokeClick} className="btn btn-sm gap-2">
-                <Laugh className="w-4 h-4" />
-                <span className="hidden sm:inline">Joke</span>
-              </button>
+              {/* Desktop Menu */}
+              <div className="hidden lg:flex items-center gap-2">
+                {/* Gemini Toggle Button */}
+                <button onClick={handleGeminiToggle} className="btn btn-sm gap-2">
+                  <Bot className="w-4 h-4" />
+                  <span className="hidden sm:inline">
+                    {showGemini ? "Close Gemini" : "Ask Gemini"}
+                  </span>
+                </button>
 
-              <button
-        onClick={() => navigate("/shorts")}
-        className="btn btn btn-sm gap-2"
-      >
-        Shorts
-      </button>
+                {/* Joke Button */}
+                <button onClick={handleJokeClick} className="btn btn-sm gap-2">
+                  <Laugh className="w-4 h-4" />
+                  <span className="hidden sm:inline">Joke</span>
+                </button>
 
-              {/* Quote Button */}
-              <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
-                <Quote className="w-4 h-4" />
-                <span className="hidden sm:inline">Quote</span>
-              </button>
-{/* ye hai horscope ka button */}
-<button onClick={handleHoroscopeClick} className="btn btn-sm gap-2">
-  🔮 <span className="hidden sm:inline">Horoscope</span>
-</button>
+                <button
+                  onClick={() => navigate("/shorts")}
+                  className="btn btn btn-sm gap-2"
+                >
+                  Shorts
+                </button>
 
+                {/* Quote Button */}
+                <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
+                  <Quote className="w-4 h-4" />
+                  <span className="hidden sm:inline">Quote</span>
+                </button>
 
+                {/* Ye hai horoscope ka button */}
+                <button onClick={handleHoroscopeClick} className="btn btn-sm gap-2">
+                  🔮 <span className="hidden sm:inline">Horoscope</span>
+                </button>
 
-              
+                {/* Settings */}
+                <Link to={"/settings"} className="btn btn-sm gap-2">
+                  <Settings className="w-4 h-4" />
+                  <span className="hidden sm:inline">Settings</span>
+                </Link>
 
-              {/* Settings */}
-              <Link to={"/settings"} className="btn btn-sm gap-2">
-                <Settings className="w-4 h-4" />
-                <span className="hidden sm:inline">Settings</span>
-              </Link>
+                {/* Authenticated User Options */}
+                {authUser && (
+                  <>
+                    <Link to={"/profile"} className="btn btn-sm gap-2">
+                      <User className="size-5" />
+                      <span className="hidden sm:inline">Profile</span>
+                    </Link>
 
-              {/* Authenticated User Options */}
-              {authUser && (
-                <>
-                  <Link to={"/profile"} className="btn btn-sm gap-2">
-                    <User className="size-5" />
-                    <span className="hidden sm:inline">Profile</span>
-                  </Link>
-
-                  <button className="flex gap-2 items-center" onClick={logout}>
-                    <LogOut className="size-5" />
-                    <span className="hidden sm:inline">Logout</span>
-                  </button>
-                </>
-              )}
+                    <button className="flex gap-2 items-center" onClick={logout}>
+                      <LogOut className="size-5" />
+                      <span className="hidden sm:inline">Logout</span>
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Dropdown Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed top-16 left-0 right-0 bg-base-100 shadow-lg z-40 p-4">
+          <div className="flex flex-col gap-2">
+            <button onClick={handleGeminiToggle} className="btn btn-sm gap-2">
+              <Bot className="w-4 h-4" />
+              {showGemini ? "Close Gemini" : "Ask Gemini"}
+            </button>
+
+            <button onClick={handleJokeClick} className="btn btn-sm gap-2">
+              <Laugh className="w-4 h-4" />
+              Joke
+            </button>
+
+            <button
+              onClick={() => navigate("/shorts")}
+              className="btn btn-sm gap-2"
+            >
+              Shorts
+            </button>
+
+            <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
+              <Quote className="w-4 h-4" />
+              Quote
+            </button>
+
+            <button onClick={handleHoroscopeClick} className="btn btn-sm gap-2">
+              🔮 Horoscope
+            </button>
+
+            <Link to={"/settings"} className="btn btn-sm gap-2">
+              <Settings className="w-4 h-4" />
+              Settings
+            </Link>
+
+            {/* Authenticated User Options */}
+            {authUser && (
+              <>
+                <Link to={"/profile"} className="btn btn-sm gap-2">
+                  <User className="size-5" />
+                  Profile
+                </Link>
+
+                <button className="flex gap-2 items-center" onClick={logout}>
+                  <LogOut className="size-5" />
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Gemini Chat Panel */}
       {showGemini && (
