@@ -10,7 +10,7 @@ const server = http.createServer(app); ///we will gonna create a server and use 
 const io = new Server(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? "https://your-app-name.vercel.app" // Your live Vercel URL in production
+      ? "https://chat-wheat-three-43.vercel.app" // Your live Vercel URL in production
       : "http://localhost:5173", // Your local dev URL for testing
   }
 });
