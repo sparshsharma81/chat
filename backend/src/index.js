@@ -98,15 +98,18 @@ app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie k
 
 
 //cors --- cross origin resource sharing.. --- use to communciate beween frontend and backend
-app.use(cors({ //this take an object as an argument and then we can pass the options to the cors middleware
+app.use(cors({ 
     origin: [
-       "http://localhost:5173",
-       "https://chat-wheat-three-43.vercel.app"
-       ],
-       //  //this is the origin of the request //react ki application ka port hai 5173
-    credentials: true, //this is the way to allow the credentials to be sent to the backend
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+        "http://localhost:5173",
+        "https://chat-wheat-three-43.vercel.app",
+        "https://chat-wheat-three-43.vercel.app/",
+        "https://chat-wheat-three-43.vercel.app/api",
+        // Add any other Vercel domains your app might use
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    exposedHeaders: ["set-cookie"]
 }));
 
 app.use("/api/auth", authRoutes);

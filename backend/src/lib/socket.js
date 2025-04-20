@@ -9,13 +9,18 @@ const server = http.createServer(app); ///we will gonna create a server and use 
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? "https://chat-wheat-three-43.vercel.app"  // Vercel live URL for production
-      : "http://localhost:5173",  // Local dev URL for testing
-    methods: ["GET", "POST"],  // Allowing GET and POST methods for requests
-    allowedHeaders: ["Content-Type"],  // Allowing specific headers for the requests
-    credentials: true,  // Allow credentials (cookies, authorization headers, etc.)
-  }
+    origin: [
+      "http://localhost:5173",
+      "https://chat-wheat-three-43.vercel.app",
+      "https://chat-wheat-three-43.vercel.app/",
+      "https://chat-wheat-three-43.vercel.app/api"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    credentials: true
+  },
+  allowEIO3: true, // Allow Engine.IO version 3
+  transports: ['websocket', 'polling']
 });
 
 export function getReceiverSocketId(userId) {//it will return the socket id when we give the user id

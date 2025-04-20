@@ -11,6 +11,7 @@ const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:5001"
   : "https://chat-mmln.onrender.com";
 
+const SOCKET_URL = BASE_URL;  // Keep base URL separate from API URL
 
 export const useAuthStore = create((set, get) => ({ //using this get method we can access to socket..differnet functions withing the state function
     authUser: null, //initilially we do not no that the user is authenticated or not..so we need to check that...
@@ -176,17 +177,26 @@ login: async (data) => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
 
-    const socket = io(BASE_URL, {
-      query: {
-        userId: authUser._id,
-      },
+    const socket = io(SOCKET_URL, {
+        query: {
+            userId: authUser._id,
+        },
+        withCredentials: true,  // iste ham cookies ka transportation karege..
+        transports: ['websocket', 'polling']  // phele hi bata diya ki cookie transfer ho rahi hai..
+        //the problem that arrises is that..the doucments is not fetching..to uske liye hi hamne banahe hai...
     });
+    
+    socket.on('connect_error', (error) => {
+        console.error('Socket connection error:', error);
+        toast.error('Connection error. Please try again.');
+    });
+
     socket.connect();
 
     set({ socket: socket });
 
     socket.on("getOnlineUsers", (userIds) => {
-      set({ onlineUsers: userIds });
+        set({ onlineUsers: userIds });
     });
   },
   disconnectSocket: () => { //when we close browser ---then this is automactically called
