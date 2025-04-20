@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
         // res.status(201).json({message: "User created successfully", user});
         
         if(!fullName || !email || !password) { 
-            return res.status(400).json({message: "All fields are required"});
+            return res.status(400).json({message: "saari fields likho"});
         }
         if(password.length < 8) { 
             return res.status(400).json({message: "Password must be at least 8 characters long"});

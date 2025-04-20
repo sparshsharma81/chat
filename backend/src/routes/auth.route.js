@@ -25,7 +25,7 @@ import { protectRoute } from '../middleware/auth.middleware.js'; ///we are impor
 //here we are using the post method to send the data to the database
 
 
-const router = express.Router();
+const router = express.Router(); //thhis is router level middleware
 
 router.post('/signup', signup); //hame ise post karne hai because we are sending the data to the database
 router.post('/login', login);

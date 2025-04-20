@@ -62,6 +62,7 @@ const user = await User.findById(decoded.userId).select('-password');
 }catch(error){
     console.log("error in protect middleware:", error);
     res.status(500).json({message: "Internal server error", error});
+    next(err);
 }
 
 }

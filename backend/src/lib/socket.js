@@ -8,10 +8,11 @@ const server = http.createServer(app); ///we will gonna create a server and use 
 
 
 const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:5173",
-        // methods: ["GET", "POST"]
-    }
+  cors: {
+    origin: process.env.NODE_ENV === 'production' 
+      ? "https://your-app-name.vercel.app" // Your live Vercel URL in production
+      : "http://localhost:5173", // Your local dev URL for testing
+  }
 });
 
 export function getReceiverSocketId(userId) {//it will return the socket id when we give the user id

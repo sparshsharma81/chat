@@ -57,11 +57,38 @@ const __dirname = path.resolve();
 
 
 
-app.use(express.json({limit: "50mb"})); 
+app.use(express.json({limit: "100mb"})); 
 //ye json ke data ko parse karega and then it will be converted into the javascript object 
 //basically ye json data extract krke send karega...
 
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
+//this is non blocking body parser--- basically it do application on the upcomming url
+
+
+//ab ye hai blocking code ka example 
+// Blocking Middleware: Simulate blocking operation if file is too large
+const blockingMiddleware = (req, res, next) => {
+  // Simulate checking for large image size from req.body
+  const imageData = req.body.image;  // Assume image data is passed as part of request body
+
+  if (imageData && imageData.length > 1 * 1024 * 1024) {  // If image size exceeds 
+      console.log('Large file detected. Blocking for 10 seconds...');
+
+      // Simulate a blocking loop for 10 seconds
+      const start = Date.now(); //ye date ko check karega...
+      while (Date.now() - start < 10000) { // Block for 10 seconds
+          // Do nothing, just block the event loop
+          console.log("blocking code");
+      }
+
+      // After blocking, trigger an error
+      return next(new Error('File size exceeds 1 limit.')); //ye hota hai custom error
+      //new -- ius basically a constructor
+  }
+
+  next();  // If file is not too large, continue to next middleware
+};
+
 
 app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie ko parse karna chahte hai 
 //#ham ise call kar rahe hai...
@@ -71,8 +98,13 @@ app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie k
 
 
 
+//cors --- cross origin resource sharing.. --- use to communciate beween frontend and backend
 app.use(cors({ //this take an object as an argument and then we can pass the options to the cors middleware
-    origin: "http://localhost:5173", //this is the origin of the request //react ki application ka port hai 5173
+    origin: [
+       "https://localhost:5173",
+       "https://chat-wheat-three-43.vercel.app"
+       ],
+       //  //this is the origin of the request //react ki application ka port hai 5173
     credentials: true, //this is the way to allow the credentials to be sent to the backend
 }));
 
@@ -81,16 +113,40 @@ app.use("/api/messages", messageRoutes); //this is the way to use the message ro
 // app.use("/api/users", userRoutes); //this is the way to use the user routes
 
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
+ // ye views folder ko point karega...
+
+app.get("/chat/", (req, res) => {
+  res.render("chat");
+  
+});
+console.log(__dirname); // Will help debug the folder location
+
+
+
+//ye hai global error handling middleware..basicaclly ye 
+///jo bhi error hm next(err) krke pass krege..to ye isme thrown krgega
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Logs the error stack to console
+  res.status(509).json({ message: 'Something went wrong, error handling middleware is called...', error: err.message });
+});
+//500 nhi ham to 509 hi rakhege./... bula lo jise bulana hai////
+
+
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
   
     app.get("*", (req, res) => {
+      if (req.path.startsWith("/chat") || req.path.startsWith("/otherEJSPage")) {
+        return next(); // Skip React for EJS pages
+      }
       res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     });
   }
 
 server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}/`);
     connectDB();
 
     //we are using async function to connect to the database

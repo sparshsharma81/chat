@@ -68,8 +68,10 @@ const Navbar = () => {
               <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
                 <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MessageSquare className="w-5 h-5 text-primary" />
+                  {/* <img src="/public/chatnow.png" alt="Chat logo" className="h-20 w-5"/> */}
+
                 </div>
-                <h1 className="text-lg font-bold">Chat's up</h1>
+                <h1 className="text-lg font-bold">Chatnow</h1>
               </Link>
             </div>
 

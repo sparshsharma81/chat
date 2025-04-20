@@ -7,7 +7,7 @@ config(); //this is the way to load the environment variables from the .env file
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    api_secret: process.env.CLOUDINARY_API_SECRET, //ye mene env file me likhi hai..joki public nahi hogi....
 });
 
 
