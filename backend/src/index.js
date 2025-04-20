@@ -1,4 +1,3 @@
-
 import express from 'express';
 import dotenv from 'dotenv'; //this is the way to import the dotenv module in the es modules
 
@@ -101,11 +100,13 @@ app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie k
 //cors --- cross origin resource sharing.. --- use to communciate beween frontend and backend
 app.use(cors({ //this take an object as an argument and then we can pass the options to the cors middleware
     origin: [
-       "https://localhost:5173",
+       "http://localhost:5173",
        "https://chat-wheat-three-43.vercel.app"
        ],
        //  //this is the origin of the request //react ki application ka port hai 5173
     credentials: true, //this is the way to allow the credentials to be sent to the backend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use("/api/auth", authRoutes);

@@ -6,26 +6,26 @@ import toast from "react-hot-toast";
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-  const fileInputRef = useRef(null); //this is the ref for the file input
-  const { sendMessage } = useChatStore(); //this is the send message function from the chat store
+  const fileInputRef = useRef(null); // this is the ref for the file input
+  const { sendMessage } = useChatStore(); // this is the send message function from the chat store
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; //this is the file that we will gonna get from the file input
-    if (!file.type.startsWith("image/")) { //this is the check for the file type
-      toast.error("Please select an image file"); //this is the toast error for the file type
+    const file = e.target.files[0]; // this is the file that we will get from the file input
+    if (!file.type.startsWith("image/")) { // this is the check for the file type
+      toast.error("Please select an image file"); // this is the toast error for the file type
       return;
     }
 
-    const reader = new FileReader(); //this is the reader for the file
+    const reader = new FileReader(); // this is the reader for the file
     reader.onloadend = () => {
-      setImagePreview(reader.result); //this is the set image preview for the image preview
+      setImagePreview(reader.result); // this is the set image preview for the image preview
     };
-    reader.readAsDataURL(file); //this is the read as data url for the file
+    reader.readAsDataURL(file); // this is the read as data URL for the file
   };
 
   const removeImage = () => {
-    setImagePreview(null); //this is the set image preview for the image preview
-    if (fileInputRef.current) fileInputRef.current.value = ""; //this is the check for the file input 
+    setImagePreview(null); // this is the set image preview for the image preview
+    if (fileInputRef.current) fileInputRef.current.value = ""; // this is the check for the file input 
   };
 
   const handleSendMessage = async (e) => {
@@ -86,10 +86,10 @@ const MessageInput = () => {
             onChange={handleImageChange}
           />
 
+          {/* Ensure the image button is visible on mobile too */}
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            className={`sm:flex btn btn-circle ${imagePreview ? "text-emerald-500" : "text-zinc-400"} flex items-center justify-center`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />

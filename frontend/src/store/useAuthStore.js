@@ -122,11 +122,20 @@ login: async (data) => {
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
       toast.success("RAM RAM ...aapka sawagat hai...");
-
-
       get().connectSocket();
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error("Login error:", error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        toast.error(error.response.data.message || "Login failed. Please try again.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error("No response from server. Please check your connection.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        toast.error("An error occurred. Please try again.");
+      }
     } finally {
       set({ isLoggingIn: false });
     }
