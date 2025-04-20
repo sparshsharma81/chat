@@ -9,18 +9,18 @@ import jwt from 'jsonwebtoken';
 export const generateToken = (userId, res)=>{
     const token = jwt.sign({userId}, process.env.JWT_SECRET, 
         {expiresIn:'1d'});
-    //THIS WILL EXPIRE THE TOKEN IN 7 DAYS..
-    //MEANS AFTER 7 DAYS THE TOKEN WILL BE INVALID..
+    //THIS WILL EXPIRE THE TOKEN IN 1 DAYS..
+    //MEANS AFTER 1 DAYS THE TOKEN WILL BE INVALID..
 
     const isProduction = process.env.NODE_ENV === 'production';
     
     res.cookie('jwt', token, {
-        maxAge: 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 24 * 60 * 60 * 1000, // 1 days
         httpOnly: true,
         sameSite: isProduction ? 'none' : 'lax', // Use 'none' for cross-site cookies in production
         secure: isProduction, // Must be true when sameSite is 'none'
         path: '/',
-        domain: isProduction ? '.onrender.com' : undefined // Specify domain in production
+        // domain: isProduction ? '.onrender.com' : undefined // Specify domain in production
     });
     return token;
 
