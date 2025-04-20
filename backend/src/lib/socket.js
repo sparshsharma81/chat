@@ -11,13 +11,17 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://chat-wheat-three-43.vercel.app",
-      "https://chat-wheat-three-43.vercel.app/",
-      "https://chat-wheat-three-43.vercel.app/api"
+      "https://chat-wheat-three-43.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     credentials: true
+  },
+  cookie: {
+    name: "io",
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production'
   },
   allowEIO3: true, // Allow Engine.IO version 3
   transports: ['websocket', 'polling']

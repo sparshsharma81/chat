@@ -97,20 +97,26 @@ app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie k
 
 
 
-//cors --- cross origin resource sharing.. --- use to communciate beween frontend and backend
+//cors configuration
 app.use(cors({ 
     origin: [
         "http://localhost:5173",
-        "https://chat-wheat-three-43.vercel.app",
-        "https://chat-wheat-three-43.vercel.app/",
-        "https://chat-wheat-three-43.vercel.app/api",
-        // Add any other Vercel domains your app might use
+        "https://chat-wheat-three-43.vercel.app"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-    exposedHeaders: ["set-cookie"]
+    exposedHeaders: ["Set-Cookie", "Date", "ETag"]
 }));
+
+// Add security headers
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes); //this is the way to use the message routes

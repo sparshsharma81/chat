@@ -13,6 +13,10 @@ export const axiosInstance = axios.create({ ///this will take an object..
 
     //we will send the cookies with every single credental requests 
     withCredentials: true, //this will send the cookies with every single credential request 
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
 });
 
 
