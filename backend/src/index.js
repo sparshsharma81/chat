@@ -66,27 +66,27 @@ app.use(express.urlencoded({ limit: "100mb", extended: true }));
 
 //ab ye hai blocking code ka example 
 // Blocking Middleware: Simulate blocking operation if file is too large
-const blockingMiddleware = (req, res, next) => {
-  // Simulate checking for large image size from req.body
-  const imageData = req.body.image;  // Assume image data is passed as part of request body
+// const blockingMiddleware = (req, res, next) => {
+//   // Simulate checking for large image size from req.body
+//   const imageData = req.body.image;  // Assume image data is passed as part of request body
 
-  if (imageData && imageData.length > 1 * 1024 * 1024) {  // If image size exceeds 
-      console.log('Large file detected. Blocking for 10 seconds...');
+//   if (imageData && imageData.length > 1 * 1024 * 1024) {  // If image size exceeds 
+//       console.log('Large file detected. Blocking for 10 seconds...');
 
-      // Simulate a blocking loop for 10 seconds
-      const start = Date.now(); //ye date ko check karega...
-      while (Date.now() - start < 10000) { // Block for 10 seconds
-          // Do nothing, just block the event loop
-          console.log("blocking code");
-      }
+//       // Simulate a blocking loop for 10 seconds
+//       const start = Date.now(); //ye date ko check karega...
+//       while (Date.now() - start < 10000) { // Block for 10 seconds
+//           // Do nothing, just block the event loop
+//           console.log("blocking code");
+//       }
 
-      // After blocking, trigger an error
-      return next(new Error('File size exceeds 1 limit.')); //ye hota hai custom error
-      //new -- ius basically a constructor
-  }
+//       // After blocking, trigger an error
+//       return next(new Error('File size exceeds 1 limit.')); //ye hota hai custom error
+//       //new -- ius basically a constructor
+//   }
 
-  next();  // If file is not too large, continue to next middleware
-};
+//   next();  // If file is not too large, continue to next middleware
+// };
 
 
 app.use(cookieParser()); //# ham cookieParser ko use karege because ham cookie ko parse karna chahte hai 
