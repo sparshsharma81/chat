@@ -160,7 +160,7 @@ const Navbar = () => {
               
       {/* ye chesss ka button hoiii */}
       <button onClick={() => window.open('https://chess-0hn9.onrender.com', '_blank')} className="btn btn-sm gap-2">
-        <span className="hidden sm:inline">♕ Chess</span>
+       ♕ Chess
       </button>
 
             <button onClick={handleJokeClick} className="btn btn-sm gap-2">
