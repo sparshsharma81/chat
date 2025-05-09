@@ -157,6 +157,11 @@ const Navbar = () => {
               <Bot className="w-4 h-4" />
               {showGemini ? "Close Gemini" : "Ask Gemini"}
             </button>
+              
+      {/* ye chesss ka button hoiii */}
+      <button onClick={() => window.open('https://chess-0hn9.onrender.com', '_blank')} className="btn btn-sm gap-2">
+        <span className="hidden sm:inline">♕ Chess</span>
+      </button>
 
             <button onClick={handleJokeClick} className="btn btn-sm gap-2">
               <Laugh className="w-4 h-4" />
