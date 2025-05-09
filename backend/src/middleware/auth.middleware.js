@@ -8,6 +8,8 @@ import User from '../models/user.model.js'; //because it is related to user mode
 
 export const protectRoute = async (req, res, next) => { //this next function is calling the next middleware
     try{
+        console.log(req.cookies);
+        
         const token = req.cookies.jwt;
 //we call it jwt because we are using the jwt token to authenticate the user 
 //in the lib --- in utils file we have created the generateToken function 
