@@ -110,11 +110,23 @@ app.use(cors({
 }));
 
 // Add security headers
+//the below four lines are for cors working... --- isme cookies ki problem ab bhi aa rahi hai...
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+
+
+    //jo upar wali lines hai ..vo cors k liye hai..
+    //ye niche wali line iframes allow krne k liye hai..
+    //basically vercel pr html me host krte waqt...render k 50seconds wala page time le raha tha..
+    //to usse redirect krne k liye iframes ka use kiya..basically taaki ek proper animation aa skte..
+    //and user ko 50 seconds tk vo bekar sa page  na dikhe..
+    res.removeHeader('X-Frame-Options');
+    res.setHeader('X-Frame-Options', 'ALLOWALL'); //allow krega sabhi header x-frame-options ko......
+    res.setHeader('Content-Security-Policy', 'frame-ancestors *');
+
     next();
 });
 
