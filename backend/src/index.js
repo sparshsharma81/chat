@@ -104,6 +104,7 @@ app.use(cors({
         "https://chat-wheat-three-43.vercel.app"
     ],
     credentials: true,
+    //ye basaically vercel pr host krne ka try kiya hai...but it is not working out properly..the reason of this is there might be several errors
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     exposedHeaders: ["Set-Cookie", "Date", "ETag"]
