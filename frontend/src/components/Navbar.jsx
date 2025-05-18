@@ -115,10 +115,11 @@ const Navbar = () => {
                 </button>
 
 
-                {/* Ye hai horoscope ka button */}
-                <button onClick={handleHoroscopeClick} className="btn btn-sm gap-2">
-                  🔮 <span className="hidden sm:inline">Horoscope</span>
-                </button>
+{/*                 {/* Ye hai horoscope ka button */}
+{/*                 <button onClick={handleHoroscopeClick} className="btn btn-sm gap-2"> */}
+{/*                   🔮 <span className="hidden sm:inline">Horoscope</span> */}
+                // </button> */}
+{/* NOW IN THE NEW UPDATE---- I HAVE REMOVED THIS HORSCOPE BUTTON..BECUASE THIS SERVICE IS NO LONGER FREE...MAYBE IN SOME OTHER UPDATE --- TRY TO INTRODUCE IT AGAIN...  */}
                 <button onClick={() => window.open('https://chess-0hn9.onrender.com', '_blank')} className="btn btn-sm gap-2">
    <span className="hidden sm:inline">♕Chess</span>
 </button>
