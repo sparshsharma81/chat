@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
@@ -7,23 +7,30 @@ const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
 
+  // Ref to the username element
+  const usernameRef = useRef(null);
+
   useEffect(() => {
     const handleCopy = (event) => {
-      event.preventDefault(); // Prevent the default copy behavior
-      const customText = "Copying is disabled or modified by ChatHeader!";
+      event.preventDefault();
+      const customText = "ram ram bhai..kaise hai..kya krega copy krke waise??";
+
       if (event.clipboardData) {
         event.clipboardData.setData("text/plain", customText);
       } else if (window.clipboardData) {
-        // For IE
         window.clipboardData.setData("Text", customText);
       }
     };
 
-    document.addEventListener("copy", handleCopy);
+    const element = usernameRef.current;
+    if (element) {
+      element.addEventListener("copy", handleCopy);
+    }
 
-    // Cleanup function to remove listener when component unmounts
     return () => {
-      document.removeEventListener("copy", handleCopy);
+      if (element) {
+        element.removeEventListener("copy", handleCopy);
+      }
     };
   }, []);
 
@@ -34,13 +41,18 @@ const ChatHeader = () => {
           {/* Avatar */}
           <div className="avatar">
             <div className="size-10 rounded-full relative">
-              <img src={selectedUser.profilePicture || "/avatar.png"} alt={selectedUser.fullName} />
+              <img
+                src={selectedUser.profilePicture || "/avatar.png"}
+                alt={selectedUser.fullName}
+              />
             </div>
           </div>
 
           {/* User info */}
           <div>
-            <h3 className="font-medium">{selectedUser.fullName}</h3>
+            <h3 className="font-medium" ref={usernameRef}>
+              {selectedUser.fullName}
+            </h3>
             <p className="text-sm text-base-content/70">
               {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
             </p>
@@ -55,4 +67,5 @@ const ChatHeader = () => {
     </div>
   );
 };
+
 export default ChatHeader;
