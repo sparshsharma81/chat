@@ -42,8 +42,8 @@ import { Send } from "lucide-react";
 //since we have saved the theme on the locastorage..so after refressing it we gonna have same theme
 
 const PREVIEW_MESSAGES = [
-  { id: 1, content: "Hey! How's it going?", isSent: false },
-  { id: 2, content: "I'm doing great! Just working on some new features.", isSent: true },
+  { id: 1, content: "Hello user....Do you like this webiste", isSent: false },
+  { id: 2, content: "This website was build by Sparsh Sharma..do message him your feedback...", isSent: true },
 ];
 
 const SettingsPage = () => {
