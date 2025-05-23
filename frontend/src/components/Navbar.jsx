@@ -150,60 +150,55 @@ const Navbar = () => {
       </header>
 
       {/* Mobile Dropdown Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed top-16 left-0 right-0 bg-base-100 shadow-lg z-40 p-4">
-          <div className="flex flex-col gap-2">
-            <button onClick={handleGeminiToggle} className="btn btn-sm gap-2">
-              <Bot className="w-4 h-4" />
-              {showGemini ? "Close Gemini" : "Ask Gemini"}
-            </button>
-              
-      {/* ye chesss ka button hoiii */}
-      <button onClick={() => window.open('https://chess-0hn9.onrender.com', '_blank')} className="btn btn-sm gap-2">
-       ♕ Chess
+     {isMobileMenuOpen && (
+  <div className="lg:hidden fixed top-16 left-0 right-0 bg-base-100 shadow-lg z-40 p-4">
+    <div className="flex flex-col gap-2">
+
+      <button onClick={() => { handleGeminiToggle(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+        <Bot className="w-4 h-4" />
+        {showGemini ? "Close Gemini" : "Ask Gemini"}
       </button>
 
-            <button onClick={handleJokeClick} className="btn btn-sm gap-2">
-              <Laugh className="w-4 h-4" />
-              Joke
-            </button>
+      <button onClick={() => { window.open('https://chess-0hn9.onrender.com', '_blank'); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+        ♕ Chess
+      </button>
 
-            <button
-              onClick={() => navigate("/shorts")}
-              className="btn btn-sm gap-2"
-            >
-              Shorts
-            </button>
+      <button onClick={() => { handleJokeClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+        <Laugh className="w-4 h-4" />
+        Joke
+      </button>
 
-            <button onClick={handleQuoteClick} className="btn btn-sm gap-2">
-              <Quote className="w-4 h-4" />
-              Quote
-            </button>
+      <button onClick={() => { navigate("/shorts"); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+        Shorts
+      </button>
 
-          
+      <button onClick={() => { handleQuoteClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+        <Quote className="w-4 h-4" />
+        Quote
+      </button>
 
-            <Link to={"/settings"} className="btn btn-sm gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
-            </Link>
+      <Link to={"/settings"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
+        <Settings className="w-4 h-4" />
+        Settings
+      </Link>
 
-            {/* Authenticated User Options */}
-            {authUser && (
-              <>
-                <Link to={"/profile"} className="btn btn-sm gap-2">
-                  <User className="size-5" />
-                  Profile
-                </Link>
+      {authUser && (
+        <>
+          <Link to={"/profile"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
+            <User className="size-5" />
+            Profile
+          </Link>
 
-                <button className="flex gap-2 items-center" onClick={logout}>
-                  <LogOut className="size-5" />
-                  Logout
-                </button>
-              </>
-            )}
-          </div>
-        </div>
+          <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="flex gap-2 items-center">
+            <LogOut className="size-5" />
+            Logout
+          </button>
+        </>
       )}
+    </div>
+  </div>
+)}
+
 
       {/* Gemini Chat Panel */}
       {showGemini && (
