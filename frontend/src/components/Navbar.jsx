@@ -12,31 +12,36 @@ const Navbar = () => {
   const { logout, authUser } = useAuthStore();
   const [showGemini, setShowGemini] = useState(false); // Toggle state for Gemini
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu state
+  const [modalContent, setModalContent] = useState(""); // Content to show in modal
+  const [modalTitle, setModalTitle] = useState(""); // Modal title
+  const [showModal, setShowModal] = useState(false); // Modal visibility
 
   const handleJokeClick = async () => {
     const joke = await getJoke();
-    alert(joke); // You can replace with toast/modal later
+    setModalTitle("Here's a Joke!");
+    setModalContent(joke);
+    setShowModal(true);
   };
 
   // Ab ye hai horoscope ke liye
   const handleHoroscopeClick = async () => {
     const name = prompt("Enter your name:");
     const birth = prompt("Enter your birthdate (MM-DD):");
-  
+
     if (!name || !birth) {
       return alert("Please enter both name and birthdate.");
     }
-  
+
     // Split MM-DD into month and day
     const [month, day] = birth.split("-").map(Number);
-  
+
     // If invalid date format, show error
     if (isNaN(month) || isNaN(day)) {
       return alert("Invalid date format! Please use MM-DD.");
     }
-  
+
     const sign = getZodiacSign(month, day);
-    
+
     try {
       const horoscope = await getHoroscope(sign); // Call API to get horoscope
       alert(`${name}, your ${sign} horoscope is:\n\n${horoscope}`);
@@ -47,7 +52,9 @@ const Navbar = () => {
 
   const handleQuoteClick = async () => {
     const quote = await getQuote();
-    alert(quote);
+    setModalTitle("Inspirational Quote");
+    setModalContent(quote);
+    setShowModal(true);
   };
 
   const handleGeminiToggle = () => {
@@ -199,7 +206,6 @@ const Navbar = () => {
   </div>
 )}
 
-
       {/* Gemini Chat Panel */}
       {showGemini && (
         <div
@@ -219,6 +225,21 @@ const Navbar = () => {
 
           <div className="flex-1 overflow-y-auto">
             <GeminiChat />
+          </div>
+        </div>
+      )}
+
+      {/* Modal for Joke/Quote */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-base-100 p-6 rounded-xl shadow-lg w-full max-w-md border border-base-300">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">{modalTitle}</h2>
+              <button onClick={() => setShowModal(false)} className="text-red-500 text-xl">
+                ✕
+              </button>
+            </div>
+            <p className="text-base-content whitespace-pre-line">{modalContent}</p>
           </div>
         </div>
       )}
