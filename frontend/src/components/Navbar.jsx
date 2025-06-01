@@ -15,6 +15,9 @@ const Navbar = () => {
   const [modalContent, setModalContent] = useState(""); // Content to show in modal
   const [modalTitle, setModalTitle] = useState(""); // Modal title
   const [showModal, setShowModal] = useState(false); // Modal visibility
+//now in the new update.. i have added the modal system..which loooks kind of better than the alert system
+  //basically when the user will click on the joke or quote thing..then the dialog box will opened up and..
+  //it will display the content there..which looks kind of good ..better than before
 
   const handleJokeClick = async () => {
     const joke = await getJoke();
