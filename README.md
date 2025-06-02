@@ -1,10 +1,11 @@
 HELLO EVERYONE 
 you can access this website on 
-https://chat-mmln.onrender.com
+https://sparshsharma.vercel.app
 <img src="https://github.com/sparshsharma81/sparshsharma81/blob/main/images/11-1.gif?raw=true" width="1400" />
 
 render takes around 30-40 seconds to load...(depending on different things...)
 but we can use cronjob to make the server warm 
+//also in the new update... there is the chess button ..which is build using websockets..using that ..you can play chess games with your friends
 
 
 
