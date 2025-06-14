@@ -167,15 +167,16 @@ ${d9Data}
 
 const styles = {
 wrapper: {
-  all: 'inherit', // inherit all basic styles from parent
   maxWidth: '800px',
   margin: '40px auto',
-  fontFamily: 'inherit', // ensure it uses the inherited font if specified by parent
-  color: 'inherit',       // text color will also follow parent
   padding: '20px',
-  backgroundColor: '#f4f6fa',
+  fontFamily: 'inherit',
+  color: 'inherit',
+  backgroundColor: '#f4f6fa', // or 'inherit' if your parent has a background
   borderRadius: '10px',
-  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  display: 'block',
+  minHeight: '100vh' // ensures it takes up screen space
 },
 
   form: {
