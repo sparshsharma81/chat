@@ -1,21 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { LogOut, MessageSquare, Settings, User, Bot, Laugh, Quote } from "lucide-react";
+import { LogOut, MessageSquare, Settings, User, Bot, Laugh, Quote, SunMoon } from "lucide-react";
 import { useState } from "react";
 import { getJoke } from "../api/joke";
 import GeminiChat from "./GeminiChat"; // Your Gemini chat component
 import { getQuote } from "../api/quote"; // Your quote fetch function
 import { getHoroscope } from "../api/Horscope";
 import { getZodiacSign } from "../api/zodiac";
+import AstrologyPage from "./AstrologyPage"; // You must have this component
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
   const [showGemini, setShowGemini] = useState(false); // Toggle state for Gemini
+  const [showAstrology, setShowAstrology] = useState(false); // Toggle state for Astrology
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu state
   const [modalContent, setModalContent] = useState(""); // Content to show in modal
   const [modalTitle, setModalTitle] = useState(""); // Modal title
   const [showModal, setShowModal] = useState(false); // Modal visibility
-//now in the new update.. i have added the modal system..which loooks kind of better than the alert system
+
   //basically when the user will click on the joke or quote thing..then the dialog box will opened up and..
   //it will display the content there..which looks kind of good ..better than before
 
@@ -64,6 +66,10 @@ const Navbar = () => {
     setShowGemini((prev) => !prev);
   };
 
+  const handleAstrologyToggle = () => {
+    setShowAstrology((prev) => !prev);
+  };
+
   const navigate = useNavigate();
 
   // Toggle mobile menu visibility
@@ -83,7 +89,6 @@ const Navbar = () => {
               <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
                 <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MessageSquare className="w-5 h-5 text-primary" />
-                  {/* <img src="/public/chatnow.png" alt="Chat logo" className="h-20 w-5"/> */}
                 </div>
                 <h1 className="text-lg font-bold">Chatnow</h1>
               </Link>
@@ -102,6 +107,14 @@ const Navbar = () => {
                   <Bot className="w-4 h-4" />
                   <span className="hidden sm:inline">
                     {showGemini ? "Close Gemini" : "Ask Gemini"}
+                  </span>
+                </button>
+
+                {/* Astrology Toggle Button */}
+                <button onClick={handleAstrologyToggle} className="btn btn-sm gap-2">
+                  <SunMoon className="w-4 h-4" />
+                  <span className="hidden sm:inline">
+                    {showAstrology ? "Close Astrology" : "Astrology"}
                   </span>
                 </button>
 
@@ -124,14 +137,10 @@ const Navbar = () => {
                   <span className="hidden sm:inline">Quote</span>
                 </button>
 
-
-{/*                 {/* Ye hai horoscope ka button */}
-{/* horscoe button ko remove kar diya .... */}
-{/*  */}
-{/* NOW IN THE NEW UPDATE---- I HAVE REMOVED THIS HORSCOPE BUTTON..BECUASE THIS SERVICE IS NO LONGER FREE...MAYBE IN SOME OTHER UPDATE --- TRY TO INTRODUCE IT AGAIN...  */}
+                {/* NOW IN THE NEW UPDATE---- I HAVE REMOVED THIS HORSCOPE BUTTON..BECUASE THIS SERVICE IS NO LONGER FREE...MAYBE IN SOME OTHER UPDATE --- TRY TO INTRODUCE IT AGAIN... */}
                 <button onClick={() => window.open('https://chess-0hn9.onrender.com', '_blank')} className="btn btn-sm gap-2">
-   <span className="hidden sm:inline">♕Chess</span>
-</button>
+                  <span className="hidden sm:inline">♕Chess</span>
+                </button>
 
                 {/* Settings */}
                 <Link to={"/settings"} className="btn btn-sm gap-2">
@@ -160,54 +169,58 @@ const Navbar = () => {
       </header>
 
       {/* Mobile Dropdown Menu */}
-     {isMobileMenuOpen && (
-  <div className="lg:hidden fixed top-16 left-0 right-0 bg-base-100 shadow-lg z-40 p-4">
-    <div className="flex flex-col gap-2">
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed top-16 left-0 right-0 bg-base-100 shadow-lg z-40 p-4">
+          <div className="flex flex-col gap-2">
+            <button onClick={() => { handleGeminiToggle(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              <Bot className="w-4 h-4" />
+              {showGemini ? "Close Gemini" : "Ask Gemini"}
+            </button>
 
-      <button onClick={() => { handleGeminiToggle(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
-        <Bot className="w-4 h-4" />
-        {showGemini ? "Close Gemini" : "Ask Gemini"}
-      </button>
+            <button onClick={() => { handleAstrologyToggle(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              <SunMoon className="w-4 h-4" />
+              {showAstrology ? "Close Astrology" : "Astrology"}
+            </button>
 
-      <button onClick={() => { window.open('https://chess-0hn9.onrender.com', '_blank'); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
-        ♕ Chess
-      </button>
+            <button onClick={() => { window.open('https://chess-0hn9.onrender.com', '_blank'); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              ♕ Chess
+            </button>
 
-      <button onClick={() => { handleJokeClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
-        <Laugh className="w-4 h-4" />
-        Joke
-      </button>
+            <button onClick={() => { handleJokeClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              <Laugh className="w-4 h-4" />
+              Joke
+            </button>
 
-      <button onClick={() => { navigate("/shorts"); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
-        Shorts
-      </button>
+            <button onClick={() => { navigate("/shorts"); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              Shorts
+            </button>
 
-      <button onClick={() => { handleQuoteClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
-        <Quote className="w-4 h-4" />
-        Quote
-      </button>
+            <button onClick={() => { handleQuoteClick(); setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+              <Quote className="w-4 h-4" />
+              Quote
+            </button>
 
-      <Link to={"/settings"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
-        <Settings className="w-4 h-4" />
-        Settings
-      </Link>
+            <Link to={"/settings"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
+              <Settings className="w-4 h-4" />
+              Settings
+            </Link>
 
-      {authUser && (
-        <>
-          <Link to={"/profile"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
-            <User className="size-5" />
-            Profile
-          </Link>
+            {authUser && (
+              <>
+                <Link to={"/profile"} onClick={() => setIsMobileMenuOpen(false)} className="btn btn-sm gap-2">
+                  <User className="size-5" />
+                  Profile
+                </Link>
 
-          <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="flex gap-2 items-center">
-            <LogOut className="size-5" />
-            Logout
-          </button>
-        </>
+                <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="flex gap-2 items-center">
+                  <LogOut className="size-5" />
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       )}
-    </div>
-  </div>
-)}
 
       {/* Gemini Chat Panel */}
       {showGemini && (
@@ -228,6 +241,29 @@ const Navbar = () => {
 
           <div className="flex-1 overflow-y-auto">
             <GeminiChat />
+          </div>
+        </div>
+      )}
+
+      {/* Astrology Modal Panel */}
+      {showAstrology && (
+        <div
+          className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50 
+          bg-base-100 text-base-content shadow-xl rounded-2xl p-4 
+          border border-base-300 flex flex-col"
+        >
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold text-lg">Astrology</h3>
+            <button
+              onClick={handleAstrologyToggle}
+              className="text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto">
+            <AstrologyPage />
           </div>
         </div>
       )}
