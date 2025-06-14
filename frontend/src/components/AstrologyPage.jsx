@@ -167,16 +167,15 @@ ${d9Data}
 
 const styles = {
 wrapper: {
+  all: 'inherit', // inherit all basic styles from parent
   maxWidth: '800px',
   margin: '40px auto',
+  fontFamily: 'inherit', // ensure it uses the inherited font if specified by parent
+  color: 'inherit',       // text color will also follow parent
   padding: '20px',
-  fontFamily: 'inherit',
-  color: 'inherit',
-  backgroundColor: '#f4f6fa', // or 'inherit' if your parent has a background
+  backgroundColor: '#f4f6fa',
   borderRadius: '10px',
-  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-  display: 'block',
-  minHeight: '100vh' // ensures it takes up screen space
+  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
 },
 
   form: {
@@ -217,4 +216,4 @@ wrapper: {
   }
 };
 
-export default AstrologyPage;
+export default AstrologyPage; 
