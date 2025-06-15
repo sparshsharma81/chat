@@ -71,8 +71,117 @@ const AstrologyPage = () => {
 
       const prompt = `
 Mere paas ek vyakti ka D1 (Rasi Chart) aur D9 (Navamsa Chart) ka output hai. Tum ek professional astrologer ho, aur tumhe unke janm kundli ke adhar par puri analysis deni hai. Analysis sirf kaam ki honi chahiye – love life, married life, nature, thinking, strengths, weaknesses, career, health, aur har house aur planet ke effect ke saath.
+kam se kam 500 lines ya apni maximum limit tk lines output me likhiyo...full detail about each and every house, usme konsa planet hai..konsi rashi hai..kon uska malik hai..uspr kis planet ki dhristi pad rahi hai...shani ki 3 dhristi hoti hai 3rd,7th,10th, jupiter ki bhi 
+3 dhrishti hoti hai... 5th , 7th, 9th, mars ki bhi 3 dhristi hoti hai.. 4th 7th and 8th..  and rahu ketu ki bhi 3 dhrishti hoti hai...5th , 7th, 9th,
+aur dhayaan rakhiyo konsa planet kis rashi me uch aur nich ka hota hai..
+Exaltation and Debilitation of Planets
+Based on Moon Sign
 
-Ye analysis English letters me Hindi language me likhi honi chahiye. Bahut hi professional tone me likhna hai jaise kisi expert astrologer se koi analysis le raha ho. Har ek house me kaunsa planet hai, uska kya matlab hai, konsa lord kis house me hai, uska kya impact hai, etc. Detail me likhna.
+Every planet has a positive and negative placement. For instance, a well-placed planet, or an exalted planet can lead you to great achievements in life. At the same time, a debilitated planet in a weak position can cause you to go through a rough and challenging phase.
+
+Exaltation and Debilitation of Planets
+
+The happiest moment in your life: Exaltation of Planets
+We all have that one favorite spot in our house that has a very special place in our heart. The same thing happens with the Planets as well, where if the planet is placed in their comfort zone, which is basically a particular range of degrees where it works very well, it will bring you wealth and success; such a placement is referred to as Exaltation in Vedic Astrology.
+
+Claim your 30-page unique FREE HOROSCOPE & learn about the position of planets in your horoscope.
+
+Name
+Male
+Please enter name
+Email
+name@example.com
+Date of Birth
+Day
+Month
+Year
+Time of Birth
+Hour
+Minute
+
+
+
+Exalted Planets signify strength and happiness by being placed in that friendly zodiac sign, like when you are at your home and there’s something special about that one corner, which attracts you always to spend your time there. You also get new innovative ideas while the spark of creativity will ignite your mind when resting in that corner.
+
+
+The tough time in your life: Debilitation of Planets
+Due to your busy schedule, you were not able to clean your garden and the room that got messed because of the last party night. Now, you are struggling while cleaning that alone and are exhausted with the burden of work related to that room or the corner. All these scenarios will be faced by planets as well, where the planet gets placed in such a zodiac sign, that it gets tired and loses its strength. This form of placements is known as debilitation in Vedic Astrology.
+
+If you have debilitated Planets in your birth chart, you will face struggles related to the significance of those Planets.
+
+
+The range in the degree where the Planets get Exalted and Debilitated:
+Exaltation of Planets in Degree with zodiac sign
+
+PLANETS	DEEPEST EXALTATION ZODIAC SIGN	DEEPEST EXALTATION DEGREE
+SUN	ARIES	10 DEGREE
+MOON	TAURUS	3 DEGREE
+MARS	CAPRICORN	28 DEGREE
+MERCURY	VIRGO	15 DEGREE
+JUPITER	CANCER	5 DEGREE
+VENUS	PISCES	27 DEGREE
+SATURN	LIBRA	20 DEGREE
+ 
+
+Debilitation of Planets in Degree with Zodiac signs:
+
+PLANETS	DEEPEST DEBILITATION ZODIAC SIGN	DEEPEST DEBILITATION DEGREE
+SUN	LIBRA	10 DEGREE
+MOON	SCORPIO	3 DEGREE
+MARS	CANCER	28 DEGREE
+MERCURY	PISCES	15 DEGREE
+JUPITER	CAPRICORN	5 DEGREE
+VENUS	VIRGO	27 DEGREE
+SATURN	ARIES	20 DEGREE
+
+. Sun: You should be prepared to enjoy the royal status and charm like a king, if your Sun is exalted in your horoscope. But if the Sun is in debilitation, stay away from legal matters or you will face setbacks in life related to government issues and taxes. Your relationship with your father will depend on the exaltation and debilitation as well.
+
+2. Moon: You will face mood swings, and every now and then you will change your mindset, which will be the greatest barrier in your success with the debilitated Moon. Be ready to be in the limelight and enjoy all the name and fame in your career along with happiness from your mother as well if the Moon is in exaltation in your horoscope.
+
+3. Mars: You will enjoy the happiness and contentment from land and property with the exaltation in your birth chart. You will have good support you’re your brother and earn a decent status in the society. The Debilitation of Mars will create struggles in your life and property-related disputes with siblings will be there.
+
+4. Mercury: You will have sharp intelligence a good amount of knowledge related to mantras if Mercury is exalted. You will face problems in doing calculative work if your Mercury is in debilitation while your relationship with your sister may get strained as well.
+
+5. Jupiter: When Jupiter is exalted, finances will be good for you and you will get the blessing of knowledge from a good mentor. The Debilitation of Jupiter can create setbacks in your finances and children-related matters.
+
+6. Venus: Be ready to have all the luxuries, fun, party, love and romance if Venus is exalted in your chart. The Debilitation of Venus will create a distance in relationships and the essence of love will be missing from your married life.
+
+7. Saturn: While an exalted Saturn will give you the best in terms of career and status, if it is debilitated, you will face tough challenges related to career and relationship.
+
+Have a deep look into your horoscope for the Exaltation and Debilitation of planets to enjoy life and your achievements while prepping for the upcoming challenges.
+
+ye bhi dhyaan rakhiyo konsa planet apni friend aur enemy ki rashi me hai...dhyaan se sahi reply kriyo please... proper professinonal reply...aur minimum 50 lines...
+apni maximum limit me reply kriyo
+ye Fire Element Signs: Aries (1), Leo (5) and Sagittarius (9)
+
+Fire element represents ambition, transformation, energy, inspiration, push.
+
+Earth Element Signs: Taurus (2), Virgo (6) and Capricorn (10)
+
+Earth element represents practicality, rationality, material world, solidity, concreteness
+
+Air Element Signs: Gemini (3), Libra (7) and Aquarius (11)
+
+Air element represents expansion, limitlessness, creativity, ideas, abstract things
+
+Water Element Signs: Cancer (4), Scorpio (8) and Pisces (12)
+dhyaan rakhiyo properly professionally reply krna hai..
+Movable Signs: 1, 4, 7,10
+
+Movable signs promote changes, movement, motion, action
+
+Fixed Signs: 2, 5, 8, 11
+
+Fixed signs also known as stable signs promote stability, security, passiveness, control
+
+Dual Signs: 3, 6, 9, 12
+
+Dual signs have both characteristics of movable signs and fixed signs
+
+tell them about their atmakarka..
+analysis puri detail me hinid me diyo..pr english language me
+jaise me likh raha hu hindi me pr english language me..waise hi reply diyo...
+. Bahut hi professional tone me likhna hai jaise kisi expert astrologer se koi analysis le raha ho. Har ek house me kaunsa planet hai, uska kya matlab hai, konsa lord kis house me hai, uska kya impact hai, etc. Detail me likhna.
 
 Location: ${location}
 Timezone: ${timezone}
