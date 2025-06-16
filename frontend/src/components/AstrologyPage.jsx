@@ -282,7 +282,7 @@ wrapper: {
   fontFamily: 'inherit', // ensure it uses the inherited font if specified by parent
   color: 'inherit',       // text color will also follow parent
   padding: '20px',
-  backgroundColor: '#f4f6fa',
+  backgroundColor: 'inherit',
   borderRadius: '10px',
   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
 },
@@ -294,15 +294,15 @@ wrapper: {
     marginBottom: '20px'
   },
   output: {
-    backgroundColor: 'white',
+    backgroundColor: 'inherit',
     padding: '20px',
     margin: '20px 0',
     borderRadius: '8px',
-    boxShadow: '0 0 10px #ccc'
+    boxShadow: '0 0 10px inherit'
   },
   analysisBox: {
-    backgroundColor: '#fff',
-    border: '1px solid #ddd',
+    backgroundColor: 'inherit',
+    border: '1px solid inherit',
     padding: '24px',
     borderRadius: '10px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -312,8 +312,8 @@ wrapper: {
     maxHeight: '400px',
     overflowY: 'auto',
     padding: '10px',
-    backgroundColor: '#fefefe',
-    border: '1px solid #eee',
+    backgroundColor: 'inherit',
+    border: '1px solid inherit',
     borderRadius: '8px'
   },
   analysisText: {
