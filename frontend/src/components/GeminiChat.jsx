@@ -8,6 +8,19 @@ const GeminiChat = () => {
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
 
+  // Load chat history on mount
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("geminiChatHistory");
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    }
+  }, []);
+
+  // Save chat history on messages change
+  useEffect(() => {
+    localStorage.setItem("geminiChatHistory", JSON.stringify(messages));
+  }, [messages]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
@@ -56,9 +69,7 @@ const GeminiChat = () => {
         ))}
         {loading && (
           <div className="chat chat-start">
-            <div className="chat-bubble bg-base-200 text-base-content
- animate-pulse">
-              {/* Gemini is typing... */}
+            <div className="chat-bubble bg-base-200 text-base-content animate-pulse">
               Ruko jara..sabar karo
             </div>
           </div>
