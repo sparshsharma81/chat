@@ -321,7 +321,7 @@ wrapper: {
     fontFamily: 'Courier New, monospace',
     fontSize: '15px',
     lineHeight: '1.6',
-    color: '#333'
+    color: 'inherit'
   }
 };
 
