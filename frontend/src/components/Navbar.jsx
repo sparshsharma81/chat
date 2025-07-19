@@ -8,6 +8,7 @@ import { getQuote } from "../api/quote"; // Your quote fetch function
 import { getHoroscope } from "../api/Horscope";
 import { getZodiacSign } from "../api/zodiac";
 import AstrologyPage from "./AstrologyPage"; // You must have this component
+import LoShuKuaModal from "./LoShuKuaModal";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
@@ -17,6 +18,8 @@ const Navbar = () => {
   const [modalContent, setModalContent] = useState(""); // Content to show in modal
   const [modalTitle, setModalTitle] = useState(""); // Modal title
   const [showModal, setShowModal] = useState(false); // Modal visibility
+  const [showNumerology, setShowNumerology] = useState(false);
+
 
   //basically when the user will click on the joke or quote thing..then the dialog box will opened up and..
   //it will display the content there..which looks kind of good ..better than before
@@ -29,31 +32,31 @@ const Navbar = () => {
   };
 
   // Ab ye hai horoscope ke liye
-  const handleHoroscopeClick = async () => {
-    const name = prompt("Enter your name:");
-    const birth = prompt("Enter your birthdate (MM-DD):");
+  // const handleHoroscopeClick = async () => {
+  //   const name = prompt("Enter your name:");
+  //   const birth = prompt("Enter your birthdate (MM-DD):");
 
-    if (!name || !birth) {
-      return alert("Please enter both name and birthdate.");
-    }
+  //   if (!name || !birth) {
+  //     return alert("Please enter both name and birthdate.");
+  //   }
 
-    // Split MM-DD into month and day
-    const [month, day] = birth.split("-").map(Number);
+  //   // Split MM-DD into month and day
+  //   const [month, day] = birth.split("-").map(Number);
 
-    // If invalid date format, show error
-    if (isNaN(month) || isNaN(day)) {
-      return alert("Invalid date format! Please use MM-DD.");
-    }
+  //   // If invalid date format, show error
+  //   if (isNaN(month) || isNaN(day)) {
+  //     return alert("Invalid date format! Please use MM-DD.");
+  //   }
 
-    const sign = getZodiacSign(month, day);
+  //   const sign = getZodiacSign(month, day);
 
-    try {
-      const horoscope = await getHoroscope(sign); // Call API to get horoscope
-      alert(`${name}, your ${sign} horoscope is:\n\n${horoscope}`);
-    } catch (error) {
-      alert("Error fetching horoscope. Please try again later.");
-    }
-  };
+  //   try {
+  //     const horoscope = await getHoroscope(sign); // Call API to get horoscope
+  //     alert(`${name}, your ${sign} horoscope is:\n\n${horoscope}`);
+  //   } catch (error) {
+  //     alert("Error fetching horoscope. Please try again later.");
+  //   }
+  // };
 
   const handleQuoteClick = async () => {
     const quote = await getQuote();
@@ -66,6 +69,9 @@ const Navbar = () => {
     setShowGemini((prev) => !prev);
   };
 
+   const handleNumerologyToggle = () => {
+    setShowNumerology((prev) => !prev);
+  };
   const handleAstrologyToggle = () => {
     setShowAstrology((prev) => !prev);
   };
@@ -117,6 +123,11 @@ const Navbar = () => {
                     {showAstrology ? "Close Astrology" : "Astrology"}
                   </span>
                 </button>
+
+                <button onClick={() => { handleNumerologyToggle(); 
+                  setIsMobileMenuOpen(false); }} className="btn btn-sm gap-2">
+                     Numerology
+                    </button>
 
                 {/* Joke Button */}
                 <button onClick={handleJokeClick} className="btn btn-sm gap-2">
@@ -264,6 +275,18 @@ const Navbar = () => {
 
           <div className="flex-1 overflow-y-auto">
             <AstrologyPage />
+          </div>
+        </div>
+      )}
+{/* this is numerology model */}
+         {showNumerology && (
+        <div className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50 bg-base-100 text-base-content shadow-xl rounded-2xl p-4 border border-base-300 flex flex-col">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold text-lg">Numerology</h3>
+            <button onClick={handleNumerologyToggle} className="text-red-500 hover:text-red-600">✕</button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <LoShuKuaModal isOpen={true} onClose={handleNumerologyToggle} />
           </div>
         </div>
       )}
