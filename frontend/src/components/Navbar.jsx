@@ -280,7 +280,7 @@ const Navbar = () => {
       )}
 {/* this is numerology model */}
          {showNumerology && (
-        <div className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50 text-base-content shadow-xl">
+        <div className="fixed right-4 top-20 bottom-6 w-[22rem] max-w-md z-50  text-base-content shadow-xl">
           {/* <div className="flex justify-between items-center mb-2"> */}
             {/* <h3 className="font-semibold text-lg">Numerology</h3> */}
             {/* <button onClick={handleNumerologyToggle} className="text-red-500 hover:text-red-600">✕</button> */}
