@@ -8,7 +8,7 @@ import { getQuote } from "../api/quote"; // Your quote fetch function
 import { getHoroscope } from "../api/Horscope";
 import { getZodiacSign } from "../api/zodiac";
 import AstrologyPage from "./AstrologyPage"; // You must have this component
-import LoShuKuaModal from "./LoShuKuaModal";
+import LoShuKuaModal from "./LoShuKuaModel";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
