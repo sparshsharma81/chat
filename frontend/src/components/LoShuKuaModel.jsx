@@ -343,7 +343,7 @@ const styles = {
     fontFamily: "'Courier New', monospace",
     fontSize: "15px",
     lineHeight: "1.7",
-    color: "#2a2a2a",
+    color: "inherit",
   },
 };
 
