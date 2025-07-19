@@ -8,20 +8,14 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
 
   const reduceToOneDigit = (n) => {
     while (n > 9) {
-      n = n
-        .toString()
-        .split("")
-        .reduce((a, b) => a + parseInt(b), 0);
+      n = n.toString().split("").reduce((a, b) => a + parseInt(b), 0);
     }
     return n;
   };
 
   const calculateKuaNumber = (year, gender) => {
     let yearSum = reduceToOneDigit(
-      year
-        .toString()
-        .split("")
-        .reduce((a, b) => a + parseInt(b), 0)
+      year.toString().split("").reduce((a, b) => a + parseInt(b), 0)
     );
     let kua;
     if (gender === "male") {
@@ -109,7 +103,7 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
     });
   };
 
-  const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; // Replace with your key
+  const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; // Replace this with your real key
 
   const callGemini = async (prompt) => {
     const res = await fetch(
@@ -142,9 +136,10 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
 
   return (
     <div style={styles.modalOverlay}>
-      <div style={styles.modal}>
+      <div style={styles.wrapper}>
         <button style={styles.closeBtn} onClick={onClose}>×</button>
-        <h2>🔢 Lo Shu Grid & Kua Calculator</h2>
+        <h2 style={{ textAlign: "center" }}>🔢 Lo Shu Grid & Kua Calculator</h2>
+
         <div style={styles.form}>
           <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} />
           <select value={gender} onChange={(e) => setGender(e.target.value)}>
@@ -152,20 +147,17 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
             <option value="female">Female</option>
           </select>
           <button onClick={generateGrid}>Generate</button>
-          {gridData && (
-            <button onClick={handleGemini}>🔮 Gemini Insight</button>
-          )}
+          {gridData && <button onClick={handleGemini}>🔮 Gemini Insight</button>}
         </div>
 
         {gridData && (
-          <>
-            <div style={styles.stats}>
-              <p><b>Driver:</b> {gridData.driver}</p>
-              <p><b>Conductor:</b> {gridData.conductor}</p>
-              <p><b>Kua:</b> {gridData.kua}</p>
-              <p><b>Kua Traits:</b> {gridData.kuaTraits}</p>
-              <p><b>Missing Numbers:</b> {gridData.missing.join(", ") || "None"}</p>
-            </div>
+          <div style={styles.analysisBox}>
+            <div><strong>Driver:</strong> {gridData.driver}</div>
+            <div><strong>Conductor:</strong> {gridData.conductor}</div>
+            <div><strong>Kua:</strong> {gridData.kua}</div>
+            <div><strong>Kua Traits:</strong> {gridData.kuaTraits}</div>
+            <div><strong>Missing Numbers:</strong> {gridData.missing.join(", ") || "None"}</div>
+
             <div style={styles.grid}>
               {gridData.grid.map((cell, i) => (
                 <div
@@ -180,21 +172,20 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
                 </div>
               ))}
             </div>
-            <div style={styles.lines}>
-              <h4>📊 Planes & Strength</h4>
+
+            <div style={styles.scrollableBox}>
               {gridData.lineStrength.map((line, idx) => (
-                <p key={idx}>{line}</p>
+                <div key={idx}>{line}</div>
               ))}
             </div>
-            <div style={styles.aiOutput}>
-              {geminiResponse && (
-                <>
-                  <h4>🔮 Gemini Insight</h4>
-                  <p style={{ whiteSpace: "pre-wrap" }}>{geminiResponse}</p>
-                </>
-              )}
-            </div>
-          </>
+
+            {geminiResponse && (
+              <div style={styles.output}>
+                <h4>🔮 Gemini Insight</h4>
+                <div style={styles.analysisText}>{geminiResponse}</div>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -206,30 +197,76 @@ const styles = {
     position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
     background: "rgba(0,0,0,0.4)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
   },
-  modal: {
-    background: "#fefefe", borderRadius: "12px", padding: "20px", width: "90%", maxWidth: "600px", position: "relative", overflowY: "auto", maxHeight: "90vh"
+  wrapper: {
+    all: "inherit",
+    maxWidth: "800px",
+    margin: "40px auto",
+    fontFamily: "'Segoe UI', sans-serif",
+    color: "#333",
+    padding: "20px",
+    backgroundColor: "#fefefe",
+    borderRadius: "10px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    position: "relative",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    width: "90%",
   },
   closeBtn: {
     position: "absolute", right: 10, top: 10, fontSize: "1.4rem", background: "transparent", border: "none", cursor: "pointer"
   },
   form: {
-    display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "15px"
-  },
-  stats: {
-    marginTop: "10px", textAlign: "left"
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "10px",
+    justifyContent: "center",
+    marginBottom: "20px",
   },
   grid: {
-    display: "grid", gridTemplateColumns: "repeat(3, 60px)", gap: "10px", margin: "20px auto", justifyContent: "center"
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 60px)",
+    gap: "10px",
+    justifyContent: "center",
+    marginTop: "20px",
   },
   cell: {
-    border: "2px solid #555", padding: "10px", textAlign: "center", borderRadius: "8px", fontWeight: "bold"
+    border: "2px solid #555",
+    padding: "10px",
+    textAlign: "center",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    fontSize: "16px",
   },
-  lines: {
-    marginTop: "10px"
+  output: {
+    backgroundColor: "#fafafa",
+    padding: "20px",
+    margin: "20px 0",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.05)",
   },
-  aiOutput: {
-    marginTop: "20px", fontSize: "0.95em", color: "#333"
-  }
+  analysisBox: {
+    backgroundColor: "#fff",
+    border: "1px solid #ddd",
+    padding: "24px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    marginBottom: "30px",
+  },
+  scrollableBox: {
+    maxHeight: "200px",
+    overflowY: "auto",
+    padding: "10px",
+    backgroundColor: "#f9f9f9",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    marginTop: "20px",
+  },
+  analysisText: {
+    whiteSpace: "pre-wrap",
+    fontFamily: "Courier New, monospace",
+    fontSize: "15px",
+    lineHeight: "1.6",
+  },
 };
 
 export default LoShuKuaModal;
