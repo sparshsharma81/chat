@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 
+const theme = {
+  primary: "#6c63ff",
+  background: "inherit",
+  text: "inherit",
+  highlight: "inherit",
+  border: "inherit",
+  accent: "inherit",
+};
+
 const LoShuKuaModal = ({ isOpen, onClose }) => {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("male");
@@ -71,17 +80,17 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
     }));
 
     const planes = {
-      "🧠 Mental Plane": [4, 9, 2],
-      "💓 Emotional Plane": [3, 5, 7],
-      "💪 Physical Plane": [8, 1, 6],
-      "🔷 Thought Line": [4, 3, 8],
-      "🔷 Will Power Line": [9, 5, 1],
-      "🔷 Action Line": [2, 7, 6],
-      "🪞 Diagonal 1": [4, 5, 6],
-      "🪞 Diagonal 2": [2, 5, 8],
-      "⭐ Center Point": [5],
-      "🌟 Spiritual Triangle": [3, 6, 9],
-      "🔺 Intuition Triangle": [1, 5, 9],
+      // "🧠 Mental Plane": [4, 9, 2],
+      // "💓 Emotional Plane": [3, 5, 7],
+      // "💪 Physical Plane": [8, 1, 6],
+      // "🔷 Thought Line": [4, 3, 8],
+      // "🔷 Will Power Line": [9, 5, 1],
+      // "🔷 Action Line": [2, 7, 6],
+      // "🪞 Diagonal 1": [4, 5, 6],
+      // "🪞 Diagonal 2": [2, 5, 8],
+      // "⭐ Center Point": [5],
+      // "🌟 Spiritual Triangle": [3, 6, 9],
+      // "🔺 Intuition Triangle": [1, 5, 9],
     };
 
     const lineStrength = Object.entries(planes)
@@ -103,7 +112,8 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
     });
   };
 
-  const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; // Replace this with your real key
+  // const GEMINI_API_KEY = "AIzaSyCQ8UKs9qDqv3137MEXes"; // Replace with your key
+  const GEMINI_API_KEY = "AIzaSyDhTtBuO1bJYFEm9XI2ZPWpmN0om3JGMcQ" //this is the updated api key..it should work
 
   const callGemini = async (prompt) => {
     const res = await fetch(
@@ -123,9 +133,12 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
   const handleGemini = async () => {
     if (!gridData) return;
     const { driver, conductor, kua, missing, lineStrength } = gridData;
-    const prompt = `DOB: ${dob}, Gender: ${gender}, Driver: ${driver}, Conductor: ${conductor}, Kua: ${kua}, Missing: ${missing.join(
-      ", "
-    )}, Planes: ${lineStrength.join("; ")}. Provide an insightful, brief numerology reading.`;
+    const prompt = `DOB: ${dob}, Gender: ${gender}, Driver: ${driver}, Conductor: ${conductor}, Kua: ${kua}, Missing: ${missing.join(", ")}, Provide an insightful, brief numerology reading. 
+    tell the user about all the numerological losho grid lines present in the native loshogrid
+    and you know all the numbers which are present so be professional.. and calculate using current year..like how your year will be
+    does your driver conductor support this year or not..what is your life path..what is your goals..
+    tell the remedies of missing number also and be professional..and at the end just write
+    Hope you like this website made by SPARSH SHARMA`;
 
     setGeminiResponse("⏳ Fetching Gemini Insight...");
     const reply = await callGemini(prompt);
@@ -138,7 +151,7 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
     <div style={styles.modalOverlay}>
       <div style={styles.wrapper}>
         <button style={styles.closeBtn} onClick={onClose}>×</button>
-        <h2 style={{ textAlign: "center" }}>🔢 Lo Shu Grid & Kua Calculator</h2>
+        <h2 style={styles.heading}>🔢 Lo Shu Grid & Kua Calculator</h2>
 
         <div style={styles.form}>
           <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} />
@@ -165,19 +178,20 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
                   style={{
                     ...styles.cell,
                     opacity: cell.isMissing ? 0.4 : 1,
-                    backgroundColor: cell.isKua ? "#ffe58a" : "#fff",
+                    backgroundColor: cell.isKua ? theme.highlight : theme.accent,
                   }}
                 >
                   {cell.count > 0 ? cell.num.toString().repeat(cell.count) : ""}
                 </div>
               ))}
             </div>
+            
 
-            <div style={styles.scrollableBox}>
+            {/* <div style={styles.scrollableBox}>
               {gridData.lineStrength.map((line, idx) => (
                 <div key={idx}>{line}</div>
               ))}
-            </div>
+            </div> */}
 
             {geminiResponse && (
               <div style={styles.output}>
@@ -194,79 +208,145 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
 
 const styles = {
   modalOverlay: {
-    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-    background: "rgba(0,0,0,0.4)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
-  },
-  wrapper: {
-    all: "inherit",
-    maxWidth: "800px",
-    margin: "40px auto",
-    fontFamily: "'Segoe UI', sans-serif",
-    color: "#333",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "inherit", // Added semi-transparent dark background
+    backdropFilter: "blur(4px)", // Subtle blur for modern look
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
     padding: "20px",
-    backgroundColor: "#fefefe",
-    borderRadius: "10px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-    position: "relative",
     overflowY: "auto",
+    boxSizing: "border-box",
+  },
+
+  wrapper: {
+    width: "100%",
+    maxWidth: "720px",
     maxHeight: "90vh",
-    width: "90%",
+    overflowY: "auto",
+    background: "inherit",
+    borderRadius: "16px",
+    boxShadow: "0 15px 40px rgba(0, 0, 0, 2)",
+    padding: "32px 28px",
+    fontFamily: "'Inter', 'Segoe UI', sans-serif",
+    position: "relative",
+    color: "inherit",
+    transition: "all 0.3s ease-in-out",
+    boxSizing: "border-box",
   },
+
   closeBtn: {
-    position: "absolute", right: 10, top: 10, fontSize: "1.4rem", background: "transparent", border: "none", cursor: "pointer"
+    position: "sticky",
+    top: "16px",
+    right: "16px",
+    fontSize: "24px",
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+    color: "Red",
+    transition: "color 0.3s",
+    alignSelf: "flex-end",
+    zIndex: 10,
+    ":hover": {
+      color: "#333",
+    },
+    ":focus": {
+      outline: "2px solid #aaa",
+      borderRadius: "4px",
+    },
   },
+
+  heading: {
+    fontSize: "1.85rem",
+    fontWeight: 700,
+    textAlign: "center",
+    marginBottom: "28px",
+    color: "inherit",
+    lineHeight: 1.3,
+  },
+
   form: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "10px",
+    gap: "14px",
     justifyContent: "center",
-    marginBottom: "20px",
+    marginBottom: "28px",
   },
-  grid: {
+
+    grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 60px)",
-    gap: "10px",
+    gridTemplateColumns: "repeat(3, 70px)",
+    gap: "12px",
     justifyContent: "center",
-    marginTop: "20px",
+    marginTop: "24px",
   },
+
   cell: {
-    border: "2px solid #555",
-    padding: "10px",
+    border: "2px solid #ccc",
+    borderRadius: "10px",
     textAlign: "center",
-    borderRadius: "8px",
-    fontWeight: "bold",
-    fontSize: "16px",
+    padding: "14px",
+    fontWeight: 600,
+    fontSize: "18px",
+    backgroundColor: "#f9f9f9",
+    color: "inherit",
+    transition: "background 0.3s, border 0.3s",
+    cursor: "pointer",
+    ":hover": {
+      backgroundColor: "#f0f0f0",
+      borderColor: "#bbb",
+    },
   },
+
   output: {
-    backgroundColor: "#fafafa",
+    backgroundColor: "inherit",
     padding: "20px",
-    margin: "20px 0",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0,0,0,0.05)",
+    margin: "24px 0 10px",
+    borderRadius: "12px",
+    border: "1px solid #eee",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
+    fontSize: "16px",
+    lineHeight: 1.6,
   },
+
   analysisBox: {
-    backgroundColor: "#fff",
+    backgroundColor: "inherit",
     border: "1px solid #ddd",
     padding: "24px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-    marginBottom: "30px",
+    borderRadius: "12px",
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.07)",
+    marginBottom: "32px",
+    fontSize: "15px",
+    lineHeight: 1.5,
   },
+
   scrollableBox: {
-    maxHeight: "200px",
+    maxHeight: "180px",
     overflowY: "auto",
-    padding: "10px",
-    backgroundColor: "#f9f9f9",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
+    padding: "14px",
+    backgroundColor: "#fff",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
     marginTop: "20px",
+    fontSize: "14px",
+    lineHeight: "1.6",
+    color: "#444",
   },
+
   analysisText: {
     whiteSpace: "pre-wrap",
-    fontFamily: "Courier New, monospace",
+    fontFamily: "'Courier New', monospace",
     fontSize: "15px",
-    lineHeight: "1.6",
+    lineHeight: "1.7",
+    color: "#2a2a2a",
   },
 };
+
+
 
 export default LoShuKuaModal;
