@@ -1,5 +1,6 @@
-const API_KEY = "AIzaSyBy8zuqZXjQajxCFq40FmvmcXOiSkLobR0"; // Replace this with your actual key
+// const API_KEY = "AIzaSyBy8zuqZXjQajxCFq40FmvmcXOiSkLobR0"; // Replace this with your actual key
 
+const API_KEY = "AIzaSyBNpxKw5NvjtlDISsMdiwXMsjT9ajg66i0";
 export const askGemini = async (promptText) => {
   try {
     const res = await fetch(
