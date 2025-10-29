@@ -12,7 +12,7 @@ const AstrologyPage = () => {
 
   const ASTROLOGY_KEY_1 = 'QW7HuNu0zm9rZmIfCd9xM2m0bcNdYPti4GsIHH2J';
   const ASTROLOGY_KEY_2 = 'Pt0HZPrfbc5HTHeq7TReg3K9F4xoNawL5quDOQ54';
-  const GEMINI_API_KEY = 'AIzaSyCQ8UKs9qDqv3137MEXes-8RcRk5MU--4I';
+  const GEMINI_API_KEY = 'AIzaSyATZB_9xB-MgsEtf8csr1SxI3Zm_g0HJLc';
 
   const fetchChart = async (url, payload, key1, key2) => {
     try {
@@ -192,8 +192,9 @@ ${d1Data}
 D9 Chart Output:
 ${d9Data}
       `;
+const MODEL_NAME = "gemini-2.0-flash";
 
-      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
