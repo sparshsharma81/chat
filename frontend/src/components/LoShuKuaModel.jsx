@@ -113,8 +113,11 @@ const LoShuKuaModal = ({ isOpen, onClose }) => {
   };
 
   // const GEMINI_API_KEY = "AIzaSyCQ8UKs9qDqv3137MEXes"; // Replace with your key
-  const GEMINI_API_KEY = "AIzaSyAaJjtr4fApjykNT4dSNgTxAIVNkm7viLY"; //this is the updated api key..it should work
-const MODEL_NAME = "gemini-2.0-flash";
+  // const GEMINI_API_KEY = "AIzaSyAaJjtr4fApjykNT4dSNgTxAIVNkm7viLY"; //this is the updated api key..it should work
+// const MODEL_NAME = "gemini-2.0-flash";
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const MODEL_NAME = process.env.MODEL_NAME || "gemini-2.0-flash";
   const callGemini = async (prompt) => {
     const res = await fetch(
      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${GEMINI_API_KEY}`,
