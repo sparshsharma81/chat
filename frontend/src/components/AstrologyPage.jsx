@@ -13,9 +13,9 @@ const AstrologyPage = () => {
   // const ASTROLOGY_KEY_1 = 'QW7HuNu0zm9rZmIfCd9xM2m0bcNdYPti4GsIHH2J';
   // const ASTROLOGY_KEY_2 = 'Pt0HZPrfbc5HTHeq7TReg3K9F4xoNawL5quDOQ54';
   // const GEMINI_API_KEY = 'AIzaSyATZB_9xB-MgsEtf8csr1SxI3Zm_g0HJLc';
-  const ASTROLOGY_KEY_1 = process.env.ASTROLOGY_KEY_1;
-  const ASTROLOGY_KEY_2 = process.env.ASTROLOGY_KEY_2;
-  const GEMINI_API_KEY = <process className="env GEMINI_API3"></process>;
+  const ASTROLOGY_KEY_1 = import.meta.env.VITE_ASTROLOGY_KEY_1;
+  const ASTROLOGY_KEY_2 = import.meta.env.VITE_ASTROLOGY_KEY_2;
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API3;
 
   const fetchChart = async (url, payload, key1, key2) => {
     try {
