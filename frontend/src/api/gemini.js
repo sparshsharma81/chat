@@ -2,8 +2,10 @@
 
 // const API_KEY2 = "AIzaSyBNpxKw5NvjtlDISsMdiwXMsjT9ajg66i0";
 // const API_KEY = "AIzaSyDz7ymMSIxlQiD3Eu_NWBnbwEKYXiU_WOQ";
-        const API_KEY = "AIzaSyBPrbeoYqWQvGE_LXose5T8Vwbu6YCRPJ4"; // <--- REPLACE THIS WITH YOUR ACTUAL KEY
-        const MODEL_NAME = "gemini-2.0-flash"; 
+        // const API_KEY = "AIzaSyBPrbeoYqWQvGE_LXose5T8Vwbu6YCRPJ4"; // <--- REPLACE THIS WITH YOUR ACTUAL KEY
+        // const MODEL_NAME = "gemini-2.0-flash"; 
+          const API_KEY = process.env.GEMINI_API1;
+        const MODEL_NAME = process.env.MODEL_NAME || "gemini-2.0-flash";
 export const askGemini = async (promptText) => {
   try {
     const res = await fetch(
